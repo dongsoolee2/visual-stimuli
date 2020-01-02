@@ -1,2 +1,2 @@
 # visual-stimuli
-Visual stimuli for retinal experiments using Psychtoolbox
+Codes generating visual stimuli for retinal experiments using Psychtoolbox
