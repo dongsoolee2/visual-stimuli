@@ -1,13 +1,5 @@
-[{
-  "function": "whitenoise",
-  "length": 10,
-  "seed": 150,
-  "framerate": 30,
-  "contrast": 1.0,
-  "dist": "binary",
-  "ndims": [50,50]
-}, {  
-  "function": "naturalscene",
+{  
+  "center": [30, 30, 50, 50],
   "length": 1,
   "seed": 90,
   "framerate": 30,
@@ -17,4 +9,4 @@
   "imgext": "*.mat",
   "jumpevery": 30,
   "jitter": 0.5
-}]
+}
