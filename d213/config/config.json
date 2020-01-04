@@ -1,10 +1,13 @@
-{ 
+[{ 
   "location": "d213",
   "lightsource": "dlp",
   "colorchannel": "rgb",
-  "os": "windows",
-  "screenidx": 2, 
+  "os": "windows"
+}, {
+  "screenidx": 2
+}, {
   "pdcenter": [30, 30, 50, 50],
-  "pdradius": 50,
+  "pdradius": 50
+}, {
   "pausetime": 0.5
-}
+}]
