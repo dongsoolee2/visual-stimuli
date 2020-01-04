@@ -1,12 +1,10 @@
-{  
-  "center": [30, 30, 50, 50],
-  "length": 1,
-  "seed": 90,
-  "framerate": 30,
-  "contrast": 1.0,
-  "ndims": [50,50],
-  "imgdir": "images/",
-  "imgext": "*.mat",
-  "jumpevery": 30,
-  "jitter": 0.5
+{ 
+  "location": "d213",
+  "lightsource": "dlp",
+  "colorchannel": "rgb",
+  "os": "windows",
+  "screenidx": 2, 
+  "pdcenter": [30, 30, 50, 50],
+  "pdradius": 50,
+  "pausetime": 0.5
 }
