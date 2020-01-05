@@ -70,7 +70,7 @@ try
     
     % get the screen numbers & draw to the external screen if available
     myScreen = max(Screen('Screens'));
-    myScreen=2;
+    %myScreen=2;
     
     % open an on screen window
     [myWindow, windowRect] = Screen('OpenWindow', myScreen, [0 255/2 0]);
@@ -169,7 +169,7 @@ try
             Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
             Screen('FillOval', myWindow, [white 0 0], PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
-            pause(130);
+            %pause(130);
         elseif i == totalFrame + 1
             Screen('FillRect', myWindow, boxColor(:, :, i - 1), boxes);
             Screen('FillOval', myWindow, [white 0 0], PHOTODIODE);
