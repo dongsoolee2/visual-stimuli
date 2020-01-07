@@ -6,7 +6,8 @@ function DL_stepflash(duration, frequency, boxSize, stimSize)
 % frequency [Hz] (default = 0.5; alternating light and dark for 1sec each)
 % boxSize and stimSize are the parameters of DL_rfmap (for consistency)
 %
-% by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-20)
+% by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-20;
+%                 edited 20-01-08)
 
 % number of arguments?
 if nargin == 0
@@ -36,10 +37,13 @@ elseif nargin == 4
     %stimSize = 32 * boxSize;
 end
 
-% parameters
-% -----------------------------------------------------------
-PAUSETIME = 0.5;                            % [sec]
-% -----------------------------------------------------------
+% load configuration file.
+config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config/config.json');
+ev = config{1};  % environment configuration
+sc = config{2};  % screen configuration
+pd = config{3};  % photodiode configuration
+st = config{4};  % stimulus configuration
+ti = config{5};  % pausetime configuration
 
 try
     % check if the installed Psychtoolbox is based on OpenGL ('Screen()'),
@@ -47,117 +51,110 @@ try
     AssertOpenGL;
     KbName('UnifyKeyNames');                        %  = PsychDefaultSetup(1);
     
-    Screen('Preference', 'ScreenToHead', 1, 1, 0);  % use this in a real experiment
-    Screen('Preference', 'SkipSyncTests', 0);      % don't use this in a real experiment
+    Screen('Preference', 'SkipSyncTests', 0);       % don't use ('SkipSyncTests', 1) in a real experiment
     
     % load KbCheck because it takes some time to read for the first time
     while KbCheck(); end
     
     ListenChar(2);                                  % suppress output of keypresses
     
-    % get the screen numbers & draw to the external screen if available
-    myScreen = max(Screen('Screens'));
-    myScreen = 2;
+    % get the screen numbers 
+    myScreen = sc.idx;
     
     % open an on screen window
-    [myWindow, windowRect] = Screen('OpenWindow', myScreen, [0 255/2 255/2]);%255/2]);
+    if myScreen == 2
+        [myWindow, windowRect] = Screen('OpenWindow', myScreen, 255/2 * sc.ch);
+    else
+        [myWindow, windowRect] = Screen('OpenWindow', myScreen, 255/2 * sc.ch, sc.debugsize);
     Screen('ColorRange', myWindow, 1, [], 1);
+    
     % set the maximum priority number
     Priority(MaxPriority(myWindow));
     
     % get index of black and white
     black = BlackIndex(myScreen);                   % 0
     white = WhiteIndex(myScreen);                   % 1
-    %meanIntensity = ((black + white + 1)/2) - 1;    % 127
     meanIntensity = (black + white)/2;              % 0.5
     
-    % get inter-flip interval (inverse of frame rate)
+    % get inter-flip interval (inverse of frame rate) & calculate fliptime
     ifi = Screen('GetFlipInterval', myWindow);
+    %flipFrame = round(0.03/ifi);
+    %flipTime = flipFrame * ifi;
+    %totalFrame = floor((duration/flipTime)/10) * 10;
+    waitFrame = ceil((1/frequency/2)/ifi);
+    totalFlip = ceil(duration/(waitFrame * ifi));
     
     % get the size of the on screen window
     [xSize, ySize] = Screen('WindowSize', myWindow);
     
     % set photodiode
     PHOTODIODE = ones(4, 1);
-    %PHOTODIODE(1, :) = round(xSize/10 * 9.0 - 65);
-    %PHOTODIODE(2, :) = round(ySize/10 * 1.6 - 65);
-    %PHOTODIODE(3, :) = round(xSize/10 * 9.0 + 65);
-    %PHOTODIODE(4, :) = round(ySize/10 * 1.6 + 65);
-    %PHOTODIODE(1, :) = round(xSize/10 * 5.90 - 39);
-    %PHOTODIODE(2, :) = round(ySize/10 * 6.40 - 39);
-    %PHOTODIODE(3, :) = round(xSize/10 * 5.90 + 39);
-    %PHOTODIODE(4, :) = round(ySize/10 * 6.40 + 39);
-    PHOTODIODE(1, :) = round(xSize/10 * 7.00 - 50);
-    PHOTODIODE(2, :) = round(ySize/10 * 4.00 - 50);
-    PHOTODIODE(3, :) = round(xSize/10 * 7.00 + 50);
-    PHOTODIODE(4, :) = round(ySize/10 * 4.00 + 50);
+    PHOTODIODE(1, :) = round(pd.center(1) * xSize - pd.radius);
+    PHOTODIODE(2, :) = round(pd.center(2) * ySize - pd.radius);
+    PHOTODIODE(3, :) = round(pd.center(1) * xSize + pd.radius);
+    PHOTODIODE(4, :) = round(pd.center(2) * ySize + pd.radius);
     
-    % set moving bar frame (to be consistent with [DL_rfmap] function)
+    % set stimulus area (for DLP setup, offset was added for "center")
     stimSize = ceil(stimSize/boxSize) * boxSize;
     numHBoxes = ceil(stimSize/boxSize/2) * 2;
     stimSize = numHBoxes * boxSize;
-    xOffset = floor((xSize/2 - stimSize/2)/boxSize) * boxSize + 43;  
-    %xOffset = floor((xSize/2 - stimSize/2)/boxSize) * boxSize;
-    yOffset = floor((ySize/2 - stimSize/2)/boxSize) * boxSize + 45;
-    %yOffset = floor((ySize/2 - stimSize/2)/boxSize) * boxSize;
+    xOffset = floor((xSize/2 - stimSize/2)/boxSize) * boxSize + st.offset(1);
+    yOffset = floor((ySize/2 - stimSize/2)/boxSize) * boxSize + st.offset(2);
+    %numBoxes = numHBoxes^2;
+    
+    % calculate the coordinate of flashbox
     flashBox = [xOffset yOffset xOffset + stimSize yOffset + stimSize];
     
-    % parameters
+    % stepindicator
     stepIndicator = 1;
-    waitFrame = ceil((1/frequency/2)/ifi);
-    totalFlip = ceil(duration/(waitFrame * ifi));
     
     % prepare for the first screen
     Screen('FillOval', myWindow, black, PHOTODIODE);
     Screen('Flip', myWindow);
-    %HideCursor();
-    KbWait();
+
     % wait for keyboard input
-    %KbEventFlush();
-    %KbQueueCreate();
-    %KbQueueStart();
-    pause(PAUSETIME);
-    
-    % to start recording computer (one frame earlier)
-    %Screen('FillOval', myWindow, 0.5 * white, PHOTODIODE);
+    KbWait();
+    pause(ti.pausetime);
+
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
     % draw step flashes
     for ind = 1:totalFlip + 1
         stepIntensity = stepIndicator * white;
-        Screen('FillRect', myWindow, [0 stepIntensity stepIntensity], flashBox);       
+        Screen('FillRect', myWindow, stepIntensity * st.ch, flashBox);       
         if ind == 1
-            Screen('FillOval', myWindow, [white 0 0], PHOTODIODE);
+            Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
-            Screen('FillRect', myWindow, [0 stepIntensity stepIntensity], flashBox);        % background: [r=0, uv=0.5, b=0.5] 
-            Screen('FillOval', myWindow, [0.3 * stepIntensity 0 0], PHOTODIODE);
+            Screen('FillRect', myWindow, stepIntensity * st.ch, flashBox);      
+            Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
         else
-            Screen('FillOval', myWindow, [white 0 0], PHOTODIODE);
+            Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
-            Screen('FillRect', myWindow, [0 stepIntensity stepIntensity], flashBox);
-            Screen('FillOval', myWindow, [0.3 * stepIntensity 0 0], PHOTODIODE);
+            Screen('FillRect', myWindow, stepIntensity * st.ch, flashBox);
+            Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
         end
-        Screen('FillRect', myWindow, [0 stepIntensity stepIntensity], flashBox);
-        Screen('FillOval', myWindow, [0.3 * stepIntensity 0 0], PHOTODIODE);
+        Screen('FillRect', myWindow, stepIntensity * st.ch, flashBox);
+        Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
         vbl = Screen('Flip', myWindow, vbl + (waitFrame - 2 - 0.1) * ifi);
         stepIndicator = ~stepIndicator;
-        % keyboard check
-        %if KbQueueCheck(-1);
-        %    break;
-        %end
     end
-    
+    disp(waifFrame);
+    disp(totalFlip);
+
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
-    %pause(15);
     
+    pause(ti.pausetime2);
+    
+    Priority(0);
     Screen('CloseAll');
     ShowCursor();
     ListenChar(0);
 catch exception
+    Priority(0);
     Screen('CloseAll');
     ShowCursor();
     ListenChar(0);

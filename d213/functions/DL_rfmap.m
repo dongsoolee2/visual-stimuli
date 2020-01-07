@@ -8,7 +8,7 @@ function DL_rfmap(duration, boxSize, stimSize, seed, contrast)
 % seed [int] for random number generator
 % contrast [0, 1] contrast of each checker
 %
-% by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-16
+% by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-16;
 %                 edited 20-01-07)
 
 % number of arguments?
@@ -51,7 +51,7 @@ elseif nargin == 5
 end
 
 % load configuration file.
-config = loadjson('config.json');
+config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config/config.json');
 ev = config{1};  % environment configuration
 sc = config{2};  % screen configuration
 pd = config{3};  % photodiode configuration
@@ -60,7 +60,7 @@ ti = config{5};  % pausetime configuration
 
 try
     % check if the installed Psychtoolbox is based on OpenGL ('Screen()'),
-    %       and provide a  consistent mapping of key codes
+    %       and provide a consistent mapping of key codes
     AssertOpenGL;
     KbName('UnifyKeyNames');                        %  = PsychDefaultSetup(1);
     
@@ -71,7 +71,7 @@ try
     
     ListenChar(2);                                  % suppress output of keypresses
     
-    % get the screen numbers & draw to the external screen if available
+    % get the screen numbers 
     myScreen = sc.idx;
     
     % open an on screen window
@@ -105,7 +105,7 @@ try
     PHOTODIODE(3, :) = round(pd.center(1) * xSize + pd.radius);
     PHOTODIODE(4, :) = round(pd.center(2) * ySize + pd.radius);
     
-    % set stimulus area (for DLP setup, +73 and -8 were added for "center")
+    % set stimulus area (for DLP setup, offset was added for "center")
     stimSize = ceil(stimSize/boxSize) * boxSize;
     numHBoxes = ceil(stimSize/boxSize/2) * 2;
     stimSize = numHBoxes * boxSize;
@@ -151,7 +151,7 @@ try
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
   
-    % draw checkboards
+    % draw checkerboards
     for i = 1:totalFrame + 1
         if i == 1
             Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
