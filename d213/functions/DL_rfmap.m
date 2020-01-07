@@ -190,6 +190,7 @@ try
     
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
+    Priority(0);
     %pause(15);
     
     Screen('CloseAll');
