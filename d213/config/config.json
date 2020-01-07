@@ -1,13 +1,23 @@
 [{ 
   "location": "d213",
   "lightsource": "dlp",
-  "colorchannel": "rgb",
-  "os": "windows"
+  "colorchannel": "r/uv/b",
+  "os": "MS-Windows7"
 }, {
-  "screenidx": 2
+  "idx": 2,
+  "ch": [0, 1, 0],
+  "debugsize": [1280, 800]
 }, {
-  "pdcenter": [30, 30, 50, 50],
-  "pdradius": 50
+  "ch": [1, 0, 0],
+  "center": [0.7, 0.4],
+  "radius": 50
 }, {
-  "pausetime": 0.5
+  "ch": [0, 1, 0],
+  "offset": [55, 10],
+  "binary": 1
+}, {
+  "pausetime": 0.5,
+  "pausetime2": 10.0,
+  "pauseafter1": 0,
+  "pausetimeafter1": 10.0
 }]
