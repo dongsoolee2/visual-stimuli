@@ -79,6 +79,7 @@ try
         [myWindow, windowRect] = Screen('OpenWindow', myScreen, 255/2 * sc.ch);
     else
         [myWindow, windowRect] = Screen('OpenWindow', myScreen, 255/2 * sc.ch, sc.debugsize);
+    end
     Screen('ColorRange', myWindow, 1, [], 1);
     
     % set the maximum priority number
@@ -170,12 +171,12 @@ try
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
         end
     end
-    disp(totalFrame);
-    
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
     pause(ti.pausetime2);
+    
+    totalFrame
     
     Priority(0);
     Screen('CloseAll');
