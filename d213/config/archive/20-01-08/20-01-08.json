@@ -23,6 +23,6 @@
   "name": "timing",
   "pausetime": 0.5,
   "pausetime2": 10.0,
-  "pauseafter1": 1,
-  "pausetimeafter1": 100.0
+  "pauseafter1": 0,
+  "pausetimeafter1": 10.0
 }]
