@@ -17,12 +17,12 @@
 }, {
   "name": "stimulus",
   "ch": [0, 1, 0],
-  "offset": [55, 10],
+  "offset": [35, 10],
   "binary": 1
 }, {
   "name": "timing",
   "pausetime": 0.5,
   "pausetime2": 10.0,
   "pauseafter1": 1,
-  "pausetimeafter1": 100.0
+  "pausetimeafter1": 10.0
 }]
