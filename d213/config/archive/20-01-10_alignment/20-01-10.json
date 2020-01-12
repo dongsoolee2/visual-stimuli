@@ -1,0 +1,28 @@
+[{
+  "name": "environment", 
+  "location": "d213",
+  "lightsource": "dlp",
+  "colorchannel": "r/uv/b",
+  "os": "MS-Windows7"
+}, {
+  "name": "screen",
+  "idx": 2,
+  "ch": [0, 1, 0],
+  "debugsize": [0, 0, 1280, 800]
+}, {
+  "name": "photodiode",
+  "ch": [1, 0, 0],
+  "center": [0.7, 0.4],
+  "radius": 50
+}, {
+  "name": "stimulus",
+  "ch": [0, 1, 0],
+  "offset": [50, 10],
+  "binary": 1
+}, {
+  "name": "timing",
+  "pausetime": 0.5,
+  "pausetime2": 10.0,
+  "pauseafter1": 1,
+  "pausetimeafter1": 1000.0
+}]

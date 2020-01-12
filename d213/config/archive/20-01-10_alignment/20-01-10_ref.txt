@@ -1,0 +1,6 @@
+20-01-10 alignment
+top(MP-285A, 25x Leica)
+  [0, 0, -1468]
+bot(conex-cc, 10x Plan N)
+  [6.7, 14.86, 22.97] w/ UV
+  [ , , 23.07] w/ blue
