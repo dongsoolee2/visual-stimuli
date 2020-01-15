@@ -16,7 +16,7 @@
   "radius": 110
 }, {
   "name": "stimulus",
-  "ch": [0, 1, 1],
+  "ch": [0, 1, 0],
   "offset": [50, 10],
   "binary": 1
 }, {
