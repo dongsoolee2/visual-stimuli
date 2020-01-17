@@ -5,17 +5,17 @@
   "colorchannel": "r/uv/b",
   "os": "MS-Windows7"
 }, {
-  "name": "screen",
+  "name": "screen_parameters",
   "idx": 2,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 1280, 800]
 }, {
-  "name": "photodiode",
+  "name": "photodiode_parameters",
   "ch": [1, 0, 0],
   "center": [0.75, 0.4],
   "radius": 110
 }, {
-  "name": "stimulus",
+  "name": "stimulus_parameters",
   "ch": [0, 1, 0],
   "offset": [50, 10],
   "binary": 1
@@ -25,4 +25,34 @@
   "pausetime2": 10.0,
   "pauseafter1": 0,
   "pausetimeafter1": 100.0
+}, {
+  "name": "stimulus_list_for_stimdraw",
+  "list": [{
+        "name": "whitenoise",
+        "duration": 10,
+        "boxSize": 8,
+        "stimSize": 256,
+        "seed": 0,
+        "contrast": 1,
+        "binary": 1,
+        "framerate": 30
+    }, {
+        "name": "whitenoise",
+        "duration": 10,
+        "boxSize": 8,
+        "stimSize": 256,
+        "seed": 0,
+        "contrast": 1,
+        "binary": 1,
+        "framerate": 30
+    }, {
+        "name": "whitenoise",
+        "duration": 10,
+        "boxSize": 8,
+        "stimSize": 256,
+        "seed": 0,
+        "contrast": 1,
+        "binary": 1,
+        "framerate": 30
+    }]
 }]

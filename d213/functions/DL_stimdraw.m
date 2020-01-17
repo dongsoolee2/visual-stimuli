@@ -1,63 +1,25 @@
-function DL_rfmap(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap displays checkerboard stimuli drawn from gaussian distribution.
+function DL_stimdraw(stim)
+% DL_stimdraw(stim)
+% DL_stimdraw displays a list of stimuli in configuration file (config.json).
 %
-% duration [sec] (default = 10)
-% boxSize [pixel] is size of each checker
-% stimSize [pixel] is size of the whole stimuli
-% seed [int] for random number generator
-% contrast [0, 1] contrast of each checker
-%
-% by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-16;
-%                 edited 20-01-07)
-
-% number of arguments?
-if nargin == 0
-    duration = 10;
-    boxSize = 8;
-    stimSize = 32 * boxSize;
-    seed = 0;
-    contrast = 1;
-elseif nargin == 1
-    %duration = 10;
-    boxSize = 8;
-    stimSize = 32 * boxSize;
-    seed = 0;
-    contrast = 1;
-elseif nargin == 2
-    %duration = 10;
-    %boxSize = 8;
-    stimSize = 32 * boxSize;
-    seed = 0;
-    contrast = 1;
-elseif nargin == 3
-    %duration = 10;
-    %boxSize = 8;
-    %stimSize = 32 * boxSize;
-    seed = 0;
-    contrast = 1;
-elseif nargin == 4
-    %duration = 10;
-    %boxSize = 8;
-    %stimSize = 32 * boxSize;
-    %seed = 0;
-    contrast = 1;
-elseif nargin == 5
-    %duration = 10;
-    %boxSize = 8;
-    %stimSize = 32 * boxSize;
-    %seed = 0;
-    %contrast = 1;
-end
+% by Dongsoo Lee (edited 20-01-16)
 
 % load configuration file.
 config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config/config.json');
-ev = config{1};  % environment configuration
-sc = config{2};  % screen configuration
-pd = config{3};  % photodiode configuration
-st = config{4};  % stimulus configuration
-ti = config{5};  % pausetime configuration
-
+ev = config{1};             % environment configuration
+sc = config{2};             % screen configuration
+pd = config{3};             % photodiode configuration
+st = config{4};             % stimulus configuration
+ti = config{5};             % pausetime configuration
+sl = config{6}.list;        % stimuli list
+                                % duration [sec]
+                                % boxSize [pixel] is size of each checker
+                                % stimSize [pixel] is size of the whole stimuli
+                                % seed [int] for random number generator
+                                % contrast [0, 1] contrast of each checker
+                                % framerate [Hz] frame per second
+stimnum = size(sl, 2);          % the total number of stimuli
+                                
 try
     % check if the installed Psychtoolbox is based on OpenGL ('Screen()'),
     %       and provide a consistent mapping of key codes
@@ -92,9 +54,9 @@ try
     
     % get inter-flip interval (inverse of frame rate) & calculate fliptime
     ifi = Screen('GetFlipInterval', myWindow);
-    flipFrame = round(0.03/ifi);
-    flipTime = flipFrame * ifi;
-    totalFrame = floor((duration/flipTime)/10) * 10;
+    %flipFrame = round(0.03/ifi);    % will be defined for each stimulus
+    %flipTime = flipFrame * ifi;
+    %totalFrame = floor((duration/flipTime)/10) * 10;
     
     % get the size of the on screen window
     [xSize, ySize] = Screen('WindowSize', myWindow);
@@ -106,41 +68,72 @@ try
     PHOTODIODE(3, :) = round(pd.center(1) * xSize + pd.radius);
     PHOTODIODE(4, :) = round(pd.center(2) * ySize + pd.radius);
     
-    % set stimulus area (for DLP setup, offset was added for "center")
-    stimSize = ceil(stimSize/boxSize) * boxSize;
-    numHBoxes = ceil(stimSize/boxSize/2) * 2;
-    stimSize = numHBoxes * boxSize;
-    xOffset = floor((xSize/2 - stimSize/2)/boxSize) * boxSize + st.offset(1);
-    yOffset = floor((ySize/2 - stimSize/2)/boxSize) * boxSize + st.offset(2);
-    numBoxes = numHBoxes^2;
+    for s = 1:stimnum
+        % calculate fliptime
+        sl{s}.flipFrame = round((1/sl{s}.framerate)/ifi);
+        sl{s}.flipTime = sl{s}.flipFrame * ifi;
+        sl{s}.totalFrame = floor((sl{s}.duration/sl{s}.flipTime)/10) * 10;
+        
+        % set stimulus area (for DLP setup, offset was added for "center")
+        sl{s}.stimSize = ceil(sl{s}.stimSize/sl{s}.boxSize) * sl{s}.boxSize;
+        sl{s}.numHBoxes = ceil(sl{s}.stimSize/sl{s}.boxSize/2) * 2;
+        sl{s}.stimSize = sl{s}.numHBoxes * sl{s}.boxSize;
+        sl{s}.xOffset = floor((xSize/2 - sl{s}.stimSize/2)/sl{s}.boxSize) * sl{s}.boxSize + st.offset(1);
+        sl{s}.yOffset = floor((ySize/2 - sl{s}.stimSize/2)/sl{s}.boxSize) * sl{s}.boxSize + st.offset(2);
+        sl{s}.numBoxes = sl{s}.numHBoxes^2;
     
-    % calculate the coordinate of boxes
-    X1 = mod(0:numBoxes - 1, numHBoxes) * boxSize + xOffset;
-    X2 = X1 + boxSize;
-    Y1 = floor((0:numBoxes - 1)/numHBoxes) * boxSize + yOffset;
-    Y2 = Y1 + boxSize;
-    boxes = [X1; Y1; X2; Y2];
-    
-    % set intensity of boxes & photodiode
-    [~, numColumns] = size(boxes);
-    boxColor = zeros(3, numColumns, totalFrame);
-    pdColor = zeros(3, totalFrame);
-    rng(seed);          % default = 0;
-    for c = 1:totalFrame
-        boxSequence = rand(1, numColumns);
-        if st.binary == 1
-            boxSequence = (boxSequence > 0.5);
+        % calculate the coordinate of boxes
+        sl{s}.X1 = mod(0:sl{s}.numBoxes - 1, sl{s}.numHBoxes) * sl{s}.boxSize + sl{s}.xOffset;
+        sl{s}.X2 = sl{s}.X1 + sl{s}.boxSize;
+        sl{s}.Y1 = floor((0:sl{s}.numBoxes - 1)/sl{s}.numHBoxes) * sl{s}.boxSize + sl{s}.yOffset;
+        sl{s}.Y2 = sl{s}.Y1 + sl{s}.boxSize;
+        sl{s}.boxes = [sl{s}.X1; sl{s}.Y1; sl{s}.X2; sl{s}.Y2];
+   
+        % set intensity of boxes & photodiode
+        [~, sl{s}.numColumns] = size(sl{s}.boxes);
+        sl{s}.boxColor = zeros(3, sl{s}.numColumns, sl{s}.totalFrame);
+        sl{s}.pdColor = zeros(3, sl{s}.totalFrame);
+        rng(sl{s}.seed);          % default = 0;
+        
+        %%%%%% work HERE
+        %%%%%% $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        % construct boxes and photodiodes
+        for c = 1:sl{s}.totalFrame
+            sl{s}.boxSequence = rand(1, sl{s}.numColumns);
+            if sl{s}.binary == 1
+                sl{s}.boxSequence = (sl{s}.boxSequence > 0.5);
+            end
+            sl{s}.boxSequenceIntensity = sl{s}.boxSequence * 2 * (meanIntensity * sl{s}.contrast) ...
+                + meanIntensity * (1 - sl{s}.contrast);
+            sl{s}.boxColor(1, :, c) = st.ch(1) * sl{s}.boxSequenceIntensity;
+            sl{s}.boxColor(2, :, c) = st.ch(2) * sl{s}.boxSequenceIntensity;
+            sl{s}.boxColor(3, :, c) = st.ch(3) * sl{s}.boxSequenceIntensity;
+            sl{s}.pdColor(1, c) = pd.ch(1) * sl{s}.boxSequenceIntensity(1);
+            sl{s}.pdColor(2, c) = pd.ch(2) * sl{s}.boxSequenceIntensity(1);
+            sl{s}.pdColor(3, c) = pd.ch(3) * sl{s}.boxSequenceIntensity(1);
         end
-        boxSequenceIntensity = boxSequence * 2 * (meanIntensity * contrast) ...
-            + meanIntensity * (1 - contrast);
-        boxColor(1, :, c) = st.ch(1) * boxSequenceIntensity;
-        boxColor(2, :, c) = st.ch(2) * boxSequenceIntensity;
-        boxColor(3, :, c) = st.ch(3) * boxSequenceIntensity;
-        pdColor(1, c) = pd.ch(1) * boxSequenceIntensity(1);
-        pdColor(2, c) = pd.ch(2) * boxSequenceIntensity(1);
-        pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
-    end
 
+    
+    
+    end
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     % prepare for the first screen
     Screen('FillOval', myWindow, black, PHOTODIODE);
     Screen('Flip', myWindow);
