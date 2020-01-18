@@ -7,7 +7,7 @@
 }, {
   "name": "screen_parameters",
   "idx": 2,
-  "ch": [0, 1, 0],
+  "ch": [0, 1, 1],
   "debugsize": [0, 0, 1280, 800]
 }, {
   "name": "photodiode_parameters",
@@ -16,15 +16,16 @@
   "radius": 110
 }, {
   "name": "stimulus_parameters",
-  "ch": [0, 1, 0],
+  "ch": [0, 1, 1],
   "offset": [50, 10],
   "binary": 1
 }, {
   "name": "timing",
-  "pausetime": 0.5,
-  "pausetime2": 10.0,
-  "pauseafter1": 0,
-  "pausetimeafter1": 100.0
+  "pausetimebefore": 0.5,
+  "pauseafter1frame": 0,
+  "pausetimeafter1frame": 100.0,
+  "pausetimebetween": 1.0,
+  "pausetimeafter": 10.0
 }, {
   "name": "stimulus_list_for_stimdraw",
   "list": [{

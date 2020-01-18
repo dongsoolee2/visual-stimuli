@@ -1,6 +1,6 @@
-function DL_naturalmovie(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap displays checkerboard stimuli drawn from gaussian distribution.
+function naturalmovie(duration, boxSize, stimSize, seed, contrast)
+% rfmap(duration, boxSize, stimSize, seed, contrast)
+% rfmap displays checkerboard stimuli drawn from gaussian distribution.
 %
 % duration [sec] (default = 10)
 % boxSize [pixel] is size of each checker

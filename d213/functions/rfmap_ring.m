@@ -1,14 +1,14 @@
-function DL_rfmap_temp(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap_temp(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap_temp displays (full)field stimuli drawn from gaussian distribution.
+function rfmap_ring(duration, boxSize, stimSize, seed, contrast)
+% rfmap_ring(duration, boxSize, stimSize, seed, contrast)
+% rfmap_ring displays ring stimuli drawn from gaussian distribution.
 %
 % duration [sec] (default = 10)
-% boxSize [pixel] is size of each checker (of DL_rfmap)
+% boxSize [pixel] is size of each checker
 % stimSize [pixel] is size of the whole stimuli
 % seed [int] for random number generator
 % contrast [0, 1] contrast of each checker
 %
-% by Dongsoo Lee (edited 17-04-04;
+% by Dongsoo Lee (edited 19-09-xx;
 %                 edited 20-01-08)
 
 % number of arguments?
@@ -120,6 +120,18 @@ try
     Y1 = floor((0:numBoxes - 1)/numHBoxes) * boxSize + yOffset;
     Y2 = Y1 + boxSize;
     boxes = [X1; Y1; X2; Y2];
+   
+    % calculate the coordinate of lines (reference)
+    %lines = boxes(:, 1:numHBoxes);
+    %lines(4, :) = boxes(4, end-numHBoxes+1:end);
+    
+    % calculate the coordinate of rings
+    ringSize = boxSize*(numHBoxes/2):-boxSize:1;
+    ringSize = 2 * ringSize;
+    rings = boxes(:, 1:numHBoxes/2);
+    rings(2, :) = rings(2, :) + (0:boxSize:boxSize*(numHBoxes/2)-1);
+    rings(3, :) = rings(1, :) + ringSize;
+    rings(4, :) = rings(2, :) + ringSize;
     
     % set intensity of boxes & photodiode
     [~, numColumns] = size(boxes);
@@ -141,37 +153,44 @@ try
         pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
     end
     
+    % reproduce for intensity of rings
+    %lineColor = boxColor(:, 1:numHBoxes, :);  % reference
+    ringColor = boxColor(:, 1:numHBoxes/2, :); % from surface to center
+    
     % prepare for the first screen
     Screen('FillOval', myWindow, black, PHOTODIODE);
     Screen('Flip', myWindow);
 
     % wait for keyboard input
     KbWait();
-    pause(ti.pausetime);
+    pause(ti.pausetimebefore);
 
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
-    
-    % draw full-field
+
+    % draw rings
     for i = 1:totalFrame + 1
         if i == 1
-            Screen('FillRect', myWindow, boxColor(:, 1, i), boxes);   % draw the first box intensity
+            Screen('FillOval', myWindow, ringColor(:, :, i), rings);
             Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
+            if ti.pauseafter1frame == 1
+                pause(ti.pausetimeafter1frame);
+            end
         elseif i == totalFrame + 1
-            %Screen('FillRect', myWindow, boxColor(:, 1, i - 1), boxes);
+            %Screen('FillOval', myWindow, ringColor(:, :, i - 1), rings);
             Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
         else
-            Screen('FillRect', myWindow, boxColor(:, 1, i), boxes);
+            Screen('FillOval', myWindow, ringColor(:, :, i), rings);
             Screen('FillOval', myWindow, 0.1 * pdColor(:, i), PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
         end
-    end 
+    end    
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
-    pause(ti.pausetime2);
+    pause(ti.pausetimeafter);
     
     totalFrame
     

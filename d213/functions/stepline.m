@@ -1,49 +1,63 @@
-function DL_rfmap_ring(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap_ring(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap_ring displays ring stimuli drawn from gaussian distribution.
+function stepline(duration, frequency, boxSize, stimSize, seed, contrast)
+% stepline(duration, frequency, boxSize, stimSize, seed, contrast)
+% stepline displays alternating line stimuli.
 %
 % duration [sec] (default = 10)
+% frequency [Hz] (default = 0.5)
 % boxSize [pixel] is size of each checker
 % stimSize [pixel] is size of the whole stimuli
-% seed [int] for random number generator
+% seed [int] for random number generator - not used
 % contrast [0, 1] contrast of each checker
 %
-% by Dongsoo Lee (edited 19-09-xx;
+% by Dongsoo Lee (edited 19-10-10;
 %                 edited 20-01-08)
 
 % number of arguments?
 if nargin == 0
     duration = 10;
+    frequency = 0.5;
     boxSize = 8;
     stimSize = 32 * boxSize;
     seed = 0;
     contrast = 1;
 elseif nargin == 1
     %duration = 10;
+    frequency = 0.5;
     boxSize = 8;
     stimSize = 32 * boxSize;
     seed = 0;
     contrast = 1;
 elseif nargin == 2
     %duration = 10;
-    %boxSize = 8;
+    %frequency = 0.5;
+    boxSize = 8;
     stimSize = 32 * boxSize;
     seed = 0;
     contrast = 1;
 elseif nargin == 3
     %duration = 10;
+    %frequency = 0.5;
     %boxSize = 8;
-    %stimSize = 32 * boxSize;
+    stimSize = 32 * boxSize;
     seed = 0;
     contrast = 1;
 elseif nargin == 4
     %duration = 10;
+    %frequency = 0.5;
+    %boxSize = 8;
+    %stimSize = 32 * boxSize;
+    seed = 0;
+    contrast = 1;
+elseif nargin == 5
+    %duration = 10;
+    %frequency = 0.5;
     %boxSize = 8;
     %stimSize = 32 * boxSize;
     %seed = 0;
     contrast = 1;
-elseif nargin == 5
+elseif nargin == 6
     %duration = 10;
+    %frequency = 0.5;
     %boxSize = 8;
     %stimSize = 32 * boxSize;
     %seed = 0;
@@ -92,9 +106,11 @@ try
     
     % get inter-flip interval (inverse of frame rate) & calculate fliptime
     ifi = Screen('GetFlipInterval', myWindow);
-    flipFrame = round(0.03/ifi);
-    flipTime = flipFrame * ifi;
-    totalFrame = floor((duration/flipTime)/10) * 10;
+    %flipFrame = round(0.03/ifi);
+    %flipTime = flipFrame * ifi;
+    %totalFrame = floor((duration/flipTime)/10) * 10;
+    waitFrame = ceil((1/frequency/2)/ifi);
+    totalFlip = ceil(duration/(waitFrame * ifi));
     
     % get the size of the on screen window
     [xSize, ySize] = Screen('WindowSize', myWindow);
@@ -120,79 +136,63 @@ try
     Y1 = floor((0:numBoxes - 1)/numHBoxes) * boxSize + yOffset;
     Y2 = Y1 + boxSize;
     boxes = [X1; Y1; X2; Y2];
-   
-    % calculate the coordinate of lines (reference)
-    %lines = boxes(:, 1:numHBoxes);
-    %lines(4, :) = boxes(4, end-numHBoxes+1:end);
     
-    % calculate the coordinate of rings
-    ringSize = boxSize*(numHBoxes/2):-boxSize:1;
-    ringSize = 2 * ringSize;
-    rings = boxes(:, 1:numHBoxes/2);
-    rings(2, :) = rings(2, :) + (0:boxSize:boxSize*(numHBoxes/2)-1);
-    rings(3, :) = rings(1, :) + ringSize;
-    rings(4, :) = rings(2, :) + ringSize;
+    % calculate the coordinate of lines from boxes
+    lines = boxes(:, 1:numHBoxes);
+    lines(4, :) = boxes(4, end-numHBoxes+1:end);
     
-    % set intensity of boxes & photodiode
-    [~, numColumns] = size(boxes);
-    boxColor = zeros(3, numColumns, totalFrame);
-    pdColor = zeros(3, totalFrame);
-    rng(seed);          % default = 0;
-    for c = 1:totalFrame
-        boxSequence = rand(1, numColumns);
-        if st.binary == 1
-            boxSequence = (boxSequence > 0.5);
-        end
-        boxSequenceIntensity = boxSequence * 2 * (meanIntensity * contrast) ...
-            + meanIntensity * (1 - contrast);
-        boxColor(1, :, c) = st.ch(1) * boxSequenceIntensity;
-        boxColor(2, :, c) = st.ch(2) * boxSequenceIntensity;
-        boxColor(3, :, c) = st.ch(3) * boxSequenceIntensity;
-        pdColor(1, c) = pd.ch(1) * boxSequenceIntensity(1);
-        pdColor(2, c) = pd.ch(2) * boxSequenceIntensity(1);
-        pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
-    end
-    
-    % reproduce for intensity of rings
-    %lineColor = boxColor(:, 1:numHBoxes, :);  % reference
-    ringColor = boxColor(:, 1:numHBoxes/2, :); % from surface to center
-    
+    % stepindicator
+    stepIndicator = 1;
+
+    % reproduce for intensity of lines
+    lineColor = zeros(3, numHBoxes, 2);
+    lineColor(1, :, 2) = st.ch(1) * rem(1:numHBoxes, 2);
+    lineColor(2, :, 2) = st.ch(2) * rem(1:numHBoxes, 2);
+    lineColor(3, :, 2) = st.ch(3) * rem(1:numHBoxes, 2);
+    lineColor(1, :, 1) = st.ch(1) * (1 - rem(1:numHBoxes, 2));
+    lineColor(2, :, 1) = st.ch(2) * (1 - rem(1:numHBoxes, 2));
+    lineColor(3, :, 1) = st.ch(3) * (1 - rem(1:numHBoxes, 2));
+
     % prepare for the first screen
     Screen('FillOval', myWindow, black, PHOTODIODE);
     Screen('Flip', myWindow);
 
     % wait for keyboard input
     KbWait();
-    pause(ti.pausetime);
+    pause(ti.pausetimebefore);
 
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
 
-    % draw rings
-    for i = 1:totalFrame + 1
-        if i == 1
-            Screen('FillOval', myWindow, ringColor(:, :, i), rings);
+    % draw lines
+    for ind = 1:totalFlip + 1    
+        stepIntensity = stepIndicator * white;
+        Screen('FillRect', myWindow, lineColor(:, :, stepIntensity + 1), lines);       
+        if ind == 1
             Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
-            vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
-            if ti.pauseafter1 == 1
-                pause(ti.pausetimeafter1);
-            end
-        elseif i == totalFrame + 1
-            %Screen('FillOval', myWindow, ringColor(:, :, i - 1), rings);
-            Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
-            vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
+            vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
+            Screen('FillRect', myWindow, lineColor(:, :, stepIntensity + 1), lines);
+            Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
+            vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
         else
-            Screen('FillOval', myWindow, ringColor(:, :, i), rings);
-            Screen('FillOval', myWindow, 0.1 * pdColor(:, i), PHOTODIODE);
-            vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
-        end
-    end    
+            Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
+            vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
+            Screen('FillRect', myWindow, lineColor(:, :, stepIntensity + 1), lines);
+            Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
+            vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
+        end 
+        Screen('FillRect', myWindow, lineColor(:, :, stepIntensity + 1), lines);
+        Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
+        vbl = Screen('Flip', myWindow, vbl + (waitFrame - 2 - 0.1) * ifi);
+        stepIndicator = ~stepIndicator;
+    end
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
-    pause(ti.pausetime2);
+    pause(ti.pausetimeafter);
     
-    totalFrame
+    waitFrame
+    totalFlip
     
     Priority(0);
     Screen('CloseAll');

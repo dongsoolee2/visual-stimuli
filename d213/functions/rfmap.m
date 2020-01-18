@@ -1,6 +1,6 @@
-function DL_rfmap(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap(duration, boxSize, stimSize, seed, contrast)
-% DL_rfmap displays checkerboard stimuli drawn from gaussian distribution.
+function rfmap(duration, boxSize, stimSize, seed, contrast)
+% rfmap(duration, boxSize, stimSize, seed, contrast)
+% rfmap displays checkerboard stimuli drawn from gaussian distribution.
 %
 % duration [sec] (default = 10)
 % boxSize [pixel] is size of each checker
@@ -147,7 +147,7 @@ try
 
     % wait for keyboard input
     KbWait();
-    pause(ti.pausetime);
+    pause(ti.pausetimebefore);
 
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
@@ -158,8 +158,8 @@ try
             Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
             Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
-            if ti.pauseafter1 == 1
-                pause(ti.pausetimeafter1);
+            if ti.pauseafter1frame == 1
+                pause(ti.pausetimeafter1frame);
             end
         elseif i == totalFrame + 1
             %Screen('FillRect', myWindow, boxColor(:, :, i - 1), boxes);
@@ -174,7 +174,7 @@ try
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
-    pause(ti.pausetime2);
+    pause(ti.pausetimeafter);
     
     totalFrame
     

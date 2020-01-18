@@ -1,6 +1,6 @@
-function DL_movbar_v2(repeat, bar_input, barWidth, boxSize, stimSize)
-% DL_movbar_v2(bar_input, barWidth, boxSize, stimSize)
-% DL_MOVBAR displays moving bars.
+function movbar_v2(repeat, bar_input, barWidth, boxSize, stimSize)
+% movbar_v2(bar_input, barWidth, boxSize, stimSize)
+% MOVBAR displays moving bars.
 %
 % bar_input is a matrix of parameters of bars (2-N arrays)
 %   1st row: contrast of moving bar (1=black; 0='mean')

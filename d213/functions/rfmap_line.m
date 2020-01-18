@@ -1,40 +1,53 @@
-function DL_stepflash(duration, frequency, boxSize, stimSize)
-% DL_stepflash(duration, frequency, boxSize, stimSize)
-% DL_STEPFLASH displays step flash stimuli.
+function rfmap_line(duration, boxSize, stimSize, seed, contrast)
+% rfmap_line(duration, boxSize, stimSize, seed, contrast)
+% rfmap_line displays line stimuli drawn from gaussian distribution.
 %
 % duration [sec] (default = 10)
-% frequency [Hz] (default = 0.5; alternating light and dark for 1sec each)
-% boxSize and stimSize are the parameters of DL_rfmap (for consistency)
+% boxSize [pixel] is size of each checker
+% stimSize [pixel] is size of the whole stimuli
+% seed [int] for random number generator
+% contrast [0, 1] contrast of each checker
 %
-% by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-20;
+% by Dongsoo Lee (edited 17-04-04;
 %                 edited 20-01-08)
 
 % number of arguments?
 if nargin == 0
     duration = 10;
-    frequency = 0.5;
     boxSize = 8;
     stimSize = 32 * boxSize;
+    seed = 0;
+    contrast = 1;
 elseif nargin == 1
     %duration = 10;
-    frequency = 0.5;
     boxSize = 8;
     stimSize = 32 * boxSize;
+    seed = 0;
+    contrast = 1;
 elseif nargin == 2
     %duration = 10;
-    %frequency = 0.5;
-    boxSize = 8;
+    %boxSize = 8;
     stimSize = 32 * boxSize;
+    seed = 0;
+    contrast = 1;
 elseif nargin == 3
     %duration = 10;
-    %frequency = 0.5;
-    %boxSize = 8;
-    stimSize = 32 * boxSize;
-elseif nargin == 4
-    %duration = 10;
-    %frequency = 0.5;
     %boxSize = 8;
     %stimSize = 32 * boxSize;
+    seed = 0;
+    contrast = 1;
+elseif nargin == 4
+    %duration = 10;
+    %boxSize = 8;
+    %stimSize = 32 * boxSize;
+    %seed = 0;
+    contrast = 1;
+elseif nargin == 5
+    %duration = 10;
+    %boxSize = 8;
+    %stimSize = 32 * boxSize;
+    %seed = 0;
+    %contrast = 1;
 end
 
 % load configuration file.
@@ -46,8 +59,8 @@ st = config{4};  % stimulus configuration
 ti = config{5};  % pausetime configuration
 
 try
-    % check if the installed Psychtoolbox is based on OpenGL ('Screen()'),
-    %       and provide a  consistent mapping of key codes
+% check if the installed Psychtoolbox is based on OpenGL ('Screen()'),
+    %       and provide a consistent mapping of key codes
     AssertOpenGL;
     KbName('UnifyKeyNames');                        %  = PsychDefaultSetup(1);
     
@@ -79,11 +92,9 @@ try
     
     % get inter-flip interval (inverse of frame rate) & calculate fliptime
     ifi = Screen('GetFlipInterval', myWindow);
-    %flipFrame = round(0.03/ifi);
-    %flipTime = flipFrame * ifi;
-    %totalFrame = floor((duration/flipTime)/10) * 10;
-    waitFrame = ceil((1/frequency/2)/ifi);
-    totalFlip = ceil(duration/(waitFrame * ifi));
+    flipFrame = round(0.03/ifi);
+    flipTime = flipFrame * ifi;
+    totalFrame = floor((duration/flipTime)/10) * 10;
     
     % get the size of the on screen window
     [xSize, ySize] = Screen('WindowSize', myWindow);
@@ -101,13 +112,41 @@ try
     stimSize = numHBoxes * boxSize;
     xOffset = floor((xSize/2 - stimSize/2)/boxSize) * boxSize + st.offset(1);
     yOffset = floor((ySize/2 - stimSize/2)/boxSize) * boxSize + st.offset(2);
-    %numBoxes = numHBoxes^2;
+    numBoxes = numHBoxes^2;
     
-    % calculate the coordinate of flashbox
-    flashBox = [xOffset yOffset xOffset + stimSize yOffset + stimSize];
+    % calculate the coordinate of boxes
+    X1 = mod(0:numBoxes - 1, numHBoxes) * boxSize + xOffset;
+    X2 = X1 + boxSize;
+    Y1 = floor((0:numBoxes - 1)/numHBoxes) * boxSize + yOffset;
+    Y2 = Y1 + boxSize;
+    boxes = [X1; Y1; X2; Y2];
+   
+    % calculate the coordinate of lines
+    lines = boxes(:, 1:numHBoxes);
+    lines(4, :) = boxes(4, end-numHBoxes+1:end);
     
-    % stepindicator
-    stepIndicator = 1;
+    % set intensity of boxes & photodiode
+    [~, numColumns] = size(boxes);
+    boxColor = zeros(3, numColumns, totalFrame);
+    pdColor = zeros(3, totalFrame);
+    rng(seed);          % default = 0;
+    for c = 1:totalFrame
+        boxSequence = rand(1, numColumns);
+        if st.binary == 1
+            boxSequence = (boxSequence > 0.5);
+        end
+        boxSequenceIntensity = boxSequence * 2 * (meanIntensity * contrast) ...
+            + meanIntensity * (1 - contrast);
+        boxColor(1, :, c) = st.ch(1) * boxSequenceIntensity;
+        boxColor(2, :, c) = st.ch(2) * boxSequenceIntensity;
+        boxColor(3, :, c) = st.ch(3) * boxSequenceIntensity;
+        pdColor(1, c) = pd.ch(1) * boxSequenceIntensity(1);
+        pdColor(2, c) = pd.ch(2) * boxSequenceIntensity(1);
+        pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
+    end
+    
+    % reproduce for intensity of lines
+    lineColor = boxColor(:, 1:numHBoxes, :);
     
     % prepare for the first screen
     Screen('FillOval', myWindow, black, PHOTODIODE);
@@ -115,40 +154,36 @@ try
 
     % wait for keyboard input
     KbWait();
-    pause(ti.pausetime);
+    pause(ti.pausetimebefore);
 
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
-    % draw step flashes
-    for ind = 1:totalFlip + 1
-        stepIntensity = stepIndicator * white;
-        Screen('FillRect', myWindow, stepIntensity * st.ch, flashBox);       
-        if ind == 1
+    % draw lines
+    for i = 1:totalFrame + 1
+        if i == 1
+            Screen('FillRect', myWindow, lineColor(:, :, i), lines);
             Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
-            vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
-            Screen('FillRect', myWindow, stepIntensity * st.ch, flashBox);      
-            Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
-            vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
+            vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
+            if ti.pauseafter1frame == 1
+                pause(ti.pausetimeafter1frame);
+            end
+        elseif i == totalFrame + 1
+            %Screen('FillRect', myWindow, lineColor(:, :, i - 1), lines);
+            Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
+            vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
         else
-            Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
-            vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
-            Screen('FillRect', myWindow, stepIntensity * st.ch, flashBox);
-            Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
-            vbl = Screen('Flip', myWindow, vbl + 0.5 * ifi);
+            Screen('FillRect', myWindow, lineColor(:, :, i), lines);
+            Screen('FillOval', myWindow, 0.1 * pdColor(:, i), PHOTODIODE);
+            vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
         end
-        Screen('FillRect', myWindow, stepIntensity * st.ch, flashBox);
-        Screen('FillOval', myWindow, 0.3 * stepIntensity * pd.ch, PHOTODIODE);
-        vbl = Screen('Flip', myWindow, vbl + (waitFrame - 2 - 0.1) * ifi);
-        stepIndicator = ~stepIndicator;
     end
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
-    pause(ti.pausetime2);
+    pause(ti.pausetimeafter);
     
-    waitFrame
-    totalFlip
+    totalFrame
     
     Priority(0);
     Screen('CloseAll');
