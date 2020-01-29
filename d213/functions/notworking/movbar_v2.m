@@ -112,7 +112,7 @@ try
     
     % get the screen numbers & draw to the external screen if available
     myScreen = max(Screen('Screens'));
-    %myScreen = 0;
+    myScreen = 1;
     
     % open an on screen window
     [myWindow, windowRect] = Screen('OpenWindow', myScreen, 255/2);
