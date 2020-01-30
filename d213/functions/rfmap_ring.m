@@ -51,7 +51,7 @@ elseif nargin == 5
 end
 
 % load configuration file.
-config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config/config.json');
+config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config.json');
 ev = config{1};  % environment configuration
 sc = config{2};  % screen configuration
 pd = config{3};  % photodiode configuration

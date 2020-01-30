@@ -51,7 +51,7 @@ elseif nargin == 5
 end
 
 % load configuration file.
-config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config/config.json');
+config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config.json');
 ev = config{1};  % environment configuration
 sc = config{2};  % screen configuration
 pd = config{3};  % photodiode configuration
@@ -92,7 +92,7 @@ try
     
     % get inter-flip interval (inverse of frame rate) & calculate fliptime
     ifi = Screen('GetFlipInterval', myWindow);
-    flipFrame = round(0.03/ifi);
+    flipFrame = round(0.03/ifi)
     flipTime = flipFrame * ifi;
     totalFrame = floor((duration/flipTime)/10) * 10;
     

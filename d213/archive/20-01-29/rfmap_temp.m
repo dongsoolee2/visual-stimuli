@@ -1,15 +1,15 @@
-function rfmap(duration, boxSize, stimSize, seed, contrast)
-% rfmap(duration, boxSize, stimSize, seed, contrast)
-% rfmap displays checkerboard stimuli drawn from gaussian distribution.
+function rfmap_temp(duration, boxSize, stimSize, seed, contrast)
+% rfmap_temp(duration, boxSize, stimSize, seed, contrast)
+% rfmap_temp displays (full)field stimuli drawn from gaussian distribution.
 %
 % duration [sec] (default = 10)
-% boxSize [pixel] is size of each checker
+% boxSize [pixel] is size of each checker (of DL_rfmap)
 % stimSize [pixel] is size of the whole stimuli
 % seed [int] for random number generator
 % contrast [0, 1] contrast of each checker
 %
-% by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-16;
-%                 edited 20-01-07)
+% by Dongsoo Lee (edited 17-04-04;
+%                 edited 20-01-08)
 
 % number of arguments?
 if nargin == 0
@@ -92,7 +92,7 @@ try
     
     % get inter-flip interval (inverse of frame rate) & calculate fliptime
     ifi = Screen('GetFlipInterval', myWindow);
-    flipFrame = round(0.03/ifi);
+    flipFrame = round(0.06/ifi)
     flipTime = flipFrame * ifi;
     totalFrame = floor((duration/flipTime)/10) * 10;
     
@@ -140,7 +140,7 @@ try
         pdColor(2, c) = pd.ch(2) * boxSequenceIntensity(1);
         pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
     end
-
+    
     % prepare for the first screen
     Screen('FillOval', myWindow, black, PHOTODIODE);
     Screen('Flip', myWindow);
@@ -151,26 +151,23 @@ try
 
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
-  
-    % draw checkerboards
+    
+    % draw full-field
     for i = 1:totalFrame + 1
         if i == 1
-            Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
+            Screen('FillRect', myWindow, boxColor(:, 1, i), boxes);   % draw the first box intensity
             Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
-            if ti.pauseafter1frame == 1
-                pause(ti.pausetimeafter1frame);
-            end
         elseif i == totalFrame + 1
-            %Screen('FillRect', myWindow, boxColor(:, :, i - 1), boxes);
+            %Screen('FillRect', myWindow, boxColor(:, 1, i - 1), boxes);
             Screen('FillOval', myWindow, white * pd.ch, PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
         else
-            Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
+            Screen('FillRect', myWindow, boxColor(:, 1, i), boxes);
             Screen('FillOval', myWindow, 0.1 * pdColor(:, i), PHOTODIODE);
             vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.1) * ifi);
         end
-    end
+    end 
     Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
