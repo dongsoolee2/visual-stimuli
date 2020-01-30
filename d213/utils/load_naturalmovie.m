@@ -1,5 +1,9 @@
-function nm = load_naturalmovie(filename)
-filedir = "/Users/dlee/visual-stimuli/d213/movie/";
-filename = "mov_Birds_moving objects in whold field_f1811_intensity.mat";
-nm = load(filedir + filename, 'mm_intensity');
+function nm = load_naturalmovie(s)
+filedir = "/Users/dlee/visual-stimuli/matrix/naturalmovie/";
+fileseed = num2str(s.seed);
+fileformat = "*.mat";
+filesearch = dir([filedir fileseed '/' fileformat]);
+filename = filesearch(1).name;
+nm = open([filedir fileseed '/' filename], "nm_intensity");
+% should work here (dimension change********************************)
 end
