@@ -98,7 +98,7 @@ try
         rng(sl{s}.seed);          % default = 0;
         % prepare for drawing
         if sl{s}.name == "naturalmovie"
-            nm = load_naturalmovie(sl{s});
+            nm = loadnaturalmovie(sl{s});
             % should work here #################################
         else
             % construct boxes and photodiodes
