@@ -1,10 +1,10 @@
-function mat2movie(mat)
+function mat2movie(mat, quality)
 if ndims(mat) ==  4
     % time, color, x, y
     [T, c, x, y] = size(mat);
     % generate video file
     v = VideoWriter('sample.mp4', 'MPEG-4');
-    v.Quality = 100;
+    v.Quality = quality;
     open(v)
     for t = 1:T
         fr = squeeze(mat(t, :, :, :));
@@ -17,7 +17,7 @@ else
     [T, x, y] = size(mat);
     % generate video file
     v = VideoWriter('sample.mp4', 'MPEG-4');
-    v.Quality = 100;
+    v.Quality = quality;
     open(v)
     for t = 1:T
         fr = squeeze(mat(t, :, :));
