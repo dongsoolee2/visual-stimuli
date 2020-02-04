@@ -1,4 +1,4 @@
-function nm = loadnaturalmovie(s)
+function nm = loadmatfiles(s)
 filedir = "/Users/dlee/visual-stimuli/matrix/naturalmovie/";
 fileseed = num2str(s.seed);
 fileformat = "*.mat";

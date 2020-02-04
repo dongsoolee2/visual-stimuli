@@ -5,7 +5,7 @@ if nargin == 0
     duration = 10;
     boxSize = 8;
     stimSize = 32 * boxSize;
-    jitter = ;
+    jitter = 0;
     downsample = 1;
 elseif nargin == 1
     duration = 10;
