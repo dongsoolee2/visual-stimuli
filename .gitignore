@@ -4,5 +4,4 @@
 __pycache__/
 /venv
 /database
-/matrix/naturalscene
-/matrix/naturalmovie
+/matrix

@@ -98,8 +98,13 @@ try
         rng(sl{s}.seed);          % default = 0;
         % prepare for drawing
         if sl{s}.name == "naturalmovie"
-            nm = loadnaturalmovie(sl{s});
-            % should work here #################################
+            m = double(loadnaturalmovie(sl{s}))/255;     % [X1 * X2, T];
+            so{s}.boxColor(1, :, :) = st.ch(1) * m(:, :);
+            so{s}.boxColor(2, :, :) = st.ch(2) * m(:, :);
+            so{s}.boxColor(3, :, :) = st.ch(3) * m(:, :);
+            so{s}.pdColor(1, :) = pd.ch(1) * m(1, :);
+            so{s}.pdColor(2, :) = pd.ch(2) * m(1, :);
+            so{s}.pdColor(3, :) = pd.ch(3) * m(1, :);
         else
             % construct boxes and photodiodes
             for c = 1:sl{s}.totalFrame
