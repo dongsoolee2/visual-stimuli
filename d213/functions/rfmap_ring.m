@@ -161,11 +161,11 @@ try
             if mode == 'f'
                 boxSequence_0(1:end-1) = boxSequence_0(2:end);
                 boxSequence_0(end) = boxSequence(end);
-                boxSequnce = boxSequence_0;
+                boxSequence = boxSequence_0;
             elseif mode == 'b'
                 boxSequence_0(2:end) = boxSequence_0(1:end-1);
                 boxSequence_0(1) = boxSequence(1);
-                boxSequnce = boxSequence_0;
+                boxSequence = boxSequence_0;
             end
         end
         % -------------------------------------
