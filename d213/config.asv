@@ -16,7 +16,7 @@
   "radius": 110
 }, {
   "name": "stimulus_parameters",
-  "ch": [0, 1, 0],
+  "ch": [0, 1, 1],
   "offset": [50, 10],
   "binary": 1
 }, {

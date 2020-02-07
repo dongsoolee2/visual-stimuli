@@ -6,7 +6,7 @@
   "os": "MS-Windows7"
 }, {
   "name": "screen_parameters",
-  "idx": 1,
+  "idx": 2,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 1280, 800]
 }, {
@@ -25,7 +25,7 @@
   "pauseafter1frame": 0,
   "pausetimeafter1frame": 100.0,
   "pausetimebetween": 1.0,
-  "pausetimeafter": 0.5
+  "pausetimeafter": 10.0
 }, {
   "name": "stimulus_list_for_stimdraw",
   "list": [{
@@ -38,11 +38,11 @@
         "binary": 1,
         "framerate": 30
     }, {
-        "name": "naturalmovie",
+        "name": "naturalscene",
         "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
-        "seed": 3,
+        "seed": 0,
         "contrast": 1,
         "binary": 0,
         "framerate": 30
@@ -51,7 +51,7 @@
         "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
-        "seed": 6,
+        "seed": 0,
         "contrast": 1,
         "binary": 0,
         "framerate": 30

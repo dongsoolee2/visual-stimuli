@@ -90,15 +90,15 @@ try
         so{s}.Y2 = so{s}.Y1 + sl{s}.boxSize;
         so{s}.boxes = [so{s}.X1; so{s}.Y1; so{s}.X2; so{s}.Y2];
         
-        % set intensity of boxes & photodiode
+        % initialize boxes & photodiode
         [~, sl{s}.numColumns] = size(so{s}.boxes);
         so{s}.boxColor = zeros(3, sl{s}.numColumns, sl{s}.totalFrame);
         so{s}.pdColor = zeros(3, sl{s}.totalFrame);
         
-        rng(sl{s}.seed);          % default = 0;
         % prepare for drawing
         if sl{s}.name == "naturalmovie"
-            m = double(loadnaturalmovie(sl{s}))/255;     % [X1 * X2, T];
+            m = loadmatfiles(sl{s});     % [X1 * X2, T];
+            m = double(m(:, 1:sl{s}.totalFrame))/255;
             so{s}.boxColor(1, :, :) = st.ch(1) * m(:, :);
             so{s}.boxColor(2, :, :) = st.ch(2) * m(:, :);
             so{s}.boxColor(3, :, :) = st.ch(3) * m(:, :);
@@ -106,6 +106,7 @@ try
             so{s}.pdColor(2, :) = pd.ch(2) * m(1, :);
             so{s}.pdColor(3, :) = pd.ch(3) * m(1, :);
         else
+            rng(sl{s}.seed);          % default = 0;
             % construct boxes and photodiodes
             for c = 1:sl{s}.totalFrame
                 boxSequence = rand(1, sl{s}.numColumns);
