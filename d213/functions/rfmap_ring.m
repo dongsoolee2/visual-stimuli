@@ -1,49 +1,63 @@
-function rfmap_ring(duration, boxSize, stimSize, seed, contrast)
-% rfmap_ring(duration, boxSize, stimSize, seed, contrast)
+function rfmap_ring(duration, mode, boxSize, stimSize, seed, contrast)
+% rfmap_ring(duration, mode, boxSize, stimSize, seed, contrast)
 % rfmap_ring displays ring stimuli drawn from gaussian distribution.
 %
 % duration [sec] (default = 10)
+% mode ['f', 'b', 'r']
 % boxSize [pixel] is size of each checker
 % stimSize [pixel] is size of the whole stimuli
 % seed [int] for random number generator
 % contrast [0, 1] contrast of each checker
 %
 % by Dongsoo Lee (edited 19-09-xx;
-%                 edited 20-01-08)
+%                 edited 20-01-08; 20-02-07)
 
 % number of arguments?
 if nargin == 0
     duration = 10;
+    mode = 'r';
     boxSize = 8;
     stimSize = 32 * boxSize;
     seed = 0;
     contrast = 1;
 elseif nargin == 1
     %duration = 10;
+    mode = 'r';
     boxSize = 8;
     stimSize = 32 * boxSize;
     seed = 0;
     contrast = 1;
 elseif nargin == 2
     %duration = 10;
-    %boxSize = 8;
+    %mode = 'r';
+    boxSize = 8;
     stimSize = 32 * boxSize;
     seed = 0;
     contrast = 1;
 elseif nargin == 3
     %duration = 10;
+    %mode = 'r';
     %boxSize = 8;
-    %stimSize = 32 * boxSize;
+    stimSize = 32 * boxSize;
     seed = 0;
     contrast = 1;
 elseif nargin == 4
     %duration = 10;
+    %mode = 'r';
+    %boxSize = 8;
+    %stimSize = 32 * boxSize;
+    seed = 0;
+    contrast = 1;
+elseif nargin == 5
+    %duration = 10;
+    %mode = 'r';
     %boxSize = 8;
     %stimSize = 32 * boxSize;
     %seed = 0;
     contrast = 1;
-elseif nargin == 5
+elseif nargin == 6
     %duration = 10;
+    %mode = 'r';
     %boxSize = 8;
     %stimSize = 32 * boxSize;
     %seed = 0;
@@ -140,6 +154,21 @@ try
     rng(seed);          % default = 0;
     for c = 1:totalFrame
         boxSequence = rand(1, numColumns);
+        % --- added for optic flow stimuli ---
+        if c == 1
+            boxSequence_0 = boxSequence;
+        else
+            if mode == 'f'
+                boxSequence_0(1:end-1) = boxSequence_0(2:end);
+                boxSequence_0(end) = boxSequence(end);
+                boxSequnce = boxSequence_0;
+            elseif mode == 'b'
+                boxSequence_0(2:end) = boxSequence_0(1:end-1);
+                boxSequence_0(1) = boxSequence(1);
+                boxSequnce = boxSequence_0;
+            end
+        end
+        % -------------------------------------
         if st.binary == 1
             boxSequence = (boxSequence > 0.5);
         end
