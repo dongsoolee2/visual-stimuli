@@ -23,7 +23,7 @@ DOWNSAMPLE = 2;             % img px / box
 jitter_coef = (RET_UM_PER_DEG * DLP_PX_PER_UM * BOX_PER_DLP_PX * DOWNSAMPLE);
 
 % Generate random indexes to sample 
-SEED = 6;
+SEED = 9;
 rng(SEED);                  % T
 T_START_IDX = ceil((TOTAL_FRAME - DURATION - 2) * rand(1, N));
 T_END_IDX = T_START_IDX + DURATION - 1;
