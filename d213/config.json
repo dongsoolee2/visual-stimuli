@@ -42,7 +42,7 @@
         "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
-        "seed": 3,
+        "seed": 6,
         "contrast": 1,
         "binary": 0,
         "framerate": 30
@@ -51,7 +51,7 @@
         "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
-        "seed": 6,
+        "seed": 9,
         "contrast": 1,
         "binary": 0,
         "framerate": 30
