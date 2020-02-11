@@ -1,4 +1,17 @@
-% This script generates stimuli from matrix 
+% This script generates 'naturalmovie' or 'natualscene' stimuli from matrix 
+
+% parameters ------------------------------
+% choose seed
+SEED = 9;                   % 3, 6, 9
+% Total number of stimuli block to generate 
+DURATION = 60;              % frame (5 sec for 30 Hz) * used 150 (movie), 60 (scene)
+N = 54000/DURATION;         % e.g.) 360 blocks * 150 frames/block = 54000
+% Movie or scene?
+MOVIE0_SCENE1 = 1;
+if MOVIE0_SCENE1
+    FRAME_FOR_SCENE = 1;
+end
+% -----------------------------------------
 
 % Load natural movie file
 load("/Users/dlee/visual-stimuli/database/movies/mov_f13028_intensity.mat"); 
@@ -10,10 +23,6 @@ X2_LENGTH = 100;            % x (+ means rightward direction)
 X1_LENGTH_BUFFER = 240;
 X2_LENGTH_BUFFER = 300;
 
-% Total number of stimuli block to generate (360 blocks * 150 frames/block = 54000) 
-N = 360;
-DURATION = 150;             % frame (5 sec for 30 Hz)
-
 % Load jitter sequence and transfomation parameters (in deg)
 load("/Users/dlee/visual-stimuli/utils/jitter.mat", "jitter");  % (2, 54000)
 RET_UM_PER_DEG = 30.0;      % mouse um / deg
@@ -23,7 +32,6 @@ DOWNSAMPLE = 2;             % img px / box
 jitter_coef = (RET_UM_PER_DEG * DLP_PX_PER_UM * BOX_PER_DLP_PX * DOWNSAMPLE);
 
 % Generate random indexes to sample 
-SEED = 9;
 rng(SEED);                  % T
 T_START_IDX = ceil((TOTAL_FRAME - DURATION - 2) * rand(1, N));
 T_END_IDX = T_START_IDX + DURATION - 1;
@@ -55,7 +63,12 @@ for n = 1:N
         X2_end_jitter_temp = X2_start_jitter_temp + X2_LENGTH - 1;
         
         % rescaling (intensity) & donwsample of image
-        mov_sample_jitter_temp_frame = squeeze(mov_sample_temp(d, ...
+        if MOVIE0_SCENE1
+            sample_idx = FRAME_FOR_SCENE;                               % if SCENE, sample 'FRAME_FOR_SCENE'-th frame
+        else
+            sample_idx = d;                                             % if MOVIE, sample 'd'-th frame
+        end
+        mov_sample_jitter_temp_frame = squeeze(mov_sample_temp(sample_idx, ...
             X1_start_jitter_temp:X1_end_jitter_temp, ...
             X2_start_jitter_temp:X2_end_jitter_temp));
         mov_sample_jitter_temp_frame = imadjust(mov_sample_jitter_temp_frame);
