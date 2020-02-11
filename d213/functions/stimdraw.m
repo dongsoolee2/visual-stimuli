@@ -96,7 +96,7 @@ try
         so{s}.pdColor = zeros(3, sl{s}.totalFrame);
         
         % prepare for drawing
-        if sl{s}.name == "naturalmovie"
+        if sl{s}.name == "naturalmovie" || sl{s}.name == "naturalscene"
             m = loadmatfiles(sl{s});     % [X1 * X2, T];
             m = double(m(:, 1:sl{s}.totalFrame))/255;
             so{s}.boxColor(1, :, :) = st.ch(1) * m(:, :);

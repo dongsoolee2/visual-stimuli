@@ -6,7 +6,7 @@
   "os": "MS-Windows7"
 }, {
   "name": "screen_parameters",
-  "idx": 2,
+  "idx": 1,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 1280, 800]
 }, {
@@ -38,8 +38,8 @@
         "binary": 1,
         "framerate": 30
     }, {
-        "name": "naturalmovie",
-        "duration": 1,
+        "name": "naturalscene",
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 6,
@@ -48,10 +48,10 @@
         "framerate": 30
     }, {
         "name": "naturalmovie",
-        "duration": 1,
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
-        "seed": 9,
+        "seed": 6,
         "contrast": 1,
         "binary": 0,
         "framerate": 30

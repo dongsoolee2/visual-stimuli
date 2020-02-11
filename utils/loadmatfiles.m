@@ -2,10 +2,15 @@ function m = loadmatfiles(s)
 
 % Load parameters from s
 SEED = s.seed;
+CATEGORY = s.name;
 NUM_BOXES = round(s.stimSize/s.boxSize);
 
 % Load movie file with seed
-filedir = '/Users/Administrator/Documents/MATLAB/visual-stimuli/matrix/naturalmovie/';
+if CATEGORY == "naturalmovie"
+    filedir = '/Users/Administrator/Documents/MATLAB/visual-stimuli/matrix/naturalmovie/';
+elseif CATEGORY == "naturalscene"
+    filedir = '/Users/Administrator/Documents/MATLAB/visual-stimuli/matrix/naturalscene/';
+end
 fileseed = num2str(SEED);
 fileformat = '*.mat';
 filesearch = dir(join([filedir, fileseed, '/', fileformat], ''));

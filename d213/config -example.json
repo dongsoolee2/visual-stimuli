@@ -25,7 +25,7 @@
   "pauseafter1frame": 0,
   "pausetimeafter1frame": 100.0,
   "pausetimebetween": 1.0,
-  "pausetimeafter": 10.0
+  "pausetimeafter": 0.5
 }, {
   "name": "stimulus_list_for_stimdraw",
   "list": [{
@@ -42,7 +42,7 @@
         "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
-        "seed": 0,
+        "seed": 6,
         "contrast": 1,
         "binary": 0,
         "framerate": 30
@@ -51,7 +51,7 @@
         "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
-        "seed": 0,
+        "seed": 9,
         "contrast": 1,
         "binary": 0,
         "framerate": 30
