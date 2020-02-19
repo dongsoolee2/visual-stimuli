@@ -6,7 +6,7 @@
   "os": "MS-Windows7"
 }, {
   "name": "screen_parameters",
-  "idx": 1,
+  "idx": 2,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 1280, 800]
 }, {
@@ -29,17 +29,8 @@
 }, {
   "name": "stimulus_list_for_stimdraw",
   "list": [{
-        "name": "whitenoise",
-        "duration": 10,
-        "boxSize": 8,
-        "stimSize": 256,
-        "seed": 0,
-        "contrast": 1,
-        "binary": 1,
-        "framerate": 30
-    }, {
         "name": "naturalscene",
-        "duration": 10,
+        "duration": 20,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 6,
@@ -47,11 +38,47 @@
         "binary": 0,
         "framerate": 30
     }, {
-        "name": "naturalmovie",
-        "duration": 10,
+        "name": "naturalscene",
+        "duration": 20,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 6,
+        "contrast": 1,
+        "binary": 0,
+        "framerate": 30
+    }, {
+        "name": "naturalscene",
+        "duration": 20,
+        "boxSize": 8,
+        "stimSize": 256,
+        "seed": 6,
+        "contrast": 1,
+        "binary": 0,
+        "framerate": 30
+    }, {
+        "name": "naturalscene",
+        "duration": 20,
+        "boxSize": 8,
+        "stimSize": 256,
+        "seed": 6,
+        "contrast": 1,
+        "binary": 0,
+        "framerate": 30
+    }, {
+        "name": "naturalscene",
+        "duration": 20,
+        "boxSize": 8,
+        "stimSize": 256,
+        "seed": 6,
+        "contrast": 1,
+        "binary": 0,
+        "framerate": 30
+    }, {
+        "name": "naturalscene",
+        "duration": 600,
+        "boxSize": 8,
+        "stimSize": 256,
+        "seed": 9,
         "contrast": 1,
         "binary": 0,
         "framerate": 30
