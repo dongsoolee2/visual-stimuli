@@ -29,8 +29,8 @@
 }, {
   "name": "stimulus_list_for_stimdraw",
   "list": [{
-        "name": "naturalscene",
-        "duration": 20,
+        "name": "naturalmovie",
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 6,
@@ -38,8 +38,8 @@
         "binary": 0,
         "framerate": 30
     }, {
-        "name": "naturalscene",
-        "duration": 20,
+        "name": "naturalmovie",
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 6,
@@ -47,8 +47,8 @@
         "binary": 0,
         "framerate": 30
     }, {
-        "name": "naturalscene",
-        "duration": 20,
+        "name": "naturalmovie",
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 6,
@@ -56,8 +56,8 @@
         "binary": 0,
         "framerate": 30
     }, {
-        "name": "naturalscene",
-        "duration": 20,
+        "name": "naturalmovie",
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 6,
@@ -65,8 +65,8 @@
         "binary": 0,
         "framerate": 30
     }, {
-        "name": "naturalscene",
-        "duration": 20,
+        "name": "naturalmovie",
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 6,
@@ -74,8 +74,8 @@
         "binary": 0,
         "framerate": 30
     }, {
-        "name": "naturalscene",
-        "duration": 600,
+        "name": "naturalmovie",
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 9,
