@@ -106,7 +106,7 @@ try
             so{s}.pdColor(2, :) = pd.ch(2) * m(1, :);
             so{s}.pdColor(3, :) = pd.ch(3) * m(1, :);
             so{s}.boxColor = uint8(so{s}.boxColor);
-            so{s}.pdColor = uint8(so{s}.pdColor);
+            so{s}.pdColor = uint8(0.05 * so{s}.pdColor);
         else
             rng(sl{s}.seed);          % default = 0;
             % construct boxes and photodiodes
@@ -125,19 +125,19 @@ try
                 so{s}.pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
             end
             so{s}.boxColor = uint8(so{s}.boxColor);
-            so{s}.pdColor = uint8(so{s}.pdColor);
+            so{s}.pdColor = uint8(0.05 * so{s}.pdColor);
         end
     end
     
     % prepare for the first screen
-    Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
+    Screen('FillOval', myWindow, black, PHOTODIODE);
     Screen('Flip', myWindow);
     
     % wait for keyboard input
     KbWait();
     pause(ti.pausetimebefore);
     
-    Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
+    Screen('FillOval', myWindow, black, PHOTODIODE);
     vbl = Screen('Flip', myWindow);
     
     % draw the list of stimuli
@@ -155,17 +155,17 @@ try
                 vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.1) * ifi);
             else
                 Screen('FillRect', myWindow, so{s}.boxColor(:, :, i), so{s}.boxes);
-                Screen('FillOval', myWindow, uint8(0.1 * so{s}.pdColor(:, i)), PHOTODIODE);
+                Screen('FillOval', myWindow, so{s}.pdColor(:, i), PHOTODIODE);
                 vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.1) * ifi);
             end
         end
-        Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
+        Screen('FillOval', myWindow, black, PHOTODIODE);
         vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.1) * ifi);
         
         if s < stimnum
             pause(ti.pausetimebetween);
             
-            Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
+            Screen('FillOval', myWindow, black, PHOTODIODE);
             vbl = Screen('Flip', myWindow);
         end
     end
