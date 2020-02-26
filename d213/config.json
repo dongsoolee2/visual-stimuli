@@ -6,7 +6,7 @@
   "os": "MS-Windows7"
 }, {
   "name": "screen_parameters",
-  "idx": 1,
+  "idx": 2,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 912, 1140]
 }, {
@@ -75,7 +75,7 @@
         "framerate": 30
     }, {
         "name": "naturalmovie",
-        "duration": 10,
+        "duration": 1800,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 9,
