@@ -27,8 +27,8 @@ mov_p = permute(mov.mov_sample(:, X1_START:X1_END, X2_START:X2_END), [3, 2, 1]);
 mov_rs = reshape(mov_p, [NUM_BOXES * NUM_BOXES, T]);
 
 % Display
-x = sprintf('seed:%d mat files loaded', SEED);
-disp(x);
+%x = sprintf('seed:%d mat files loaded', SEED);
+%disp(x);
 
 % return
 m = mov_rs; 
