@@ -139,6 +139,8 @@ try
     
     Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
     vbl = Screen('Flip', myWindow);
+    Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
+    vbl = Screen('Flip', myWindow);
     
     % draw the list of stimuli
     for s = 1:stimnum
@@ -146,21 +148,21 @@ try
             if i == 1
                 Screen('FillRect', myWindow, so{s}.boxColor(:, :, i), so{s}.boxes);
                 Screen('FillOval', myWindow, uint8(white * pd.ch), PHOTODIODE);
-                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.2) * ifi);
+                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.5) * ifi);
                 if ti.pauseafter1frame == 1
                     pause(ti.pausetimeafter1frame);
                 end
             elseif i == sl{s}.totalFrame + 1
                 Screen('FillOval', myWindow, uint8(white * pd.ch), PHOTODIODE);
-                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.2) * ifi);
+                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.5) * ifi);
             else
                 Screen('FillRect', myWindow, so{s}.boxColor(:, :, i), so{s}.boxes);
                 Screen('FillOval', myWindow, so{s}.pdColor(:, i), PHOTODIODE);
-                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.2) * ifi);
+                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.5) * ifi);
             end
         end
         Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
-        vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.2) * ifi);
+        vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.5) * ifi);
         
         if s < stimnum
             pause(ti.pausetimebetween);
