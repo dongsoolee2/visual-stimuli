@@ -120,7 +120,20 @@ try
                 so{s}.boxColor(1, :, c) = st.ch(1) * boxSequenceIntensity;
                 so{s}.boxColor(2, :, c) = st.ch(2) * boxSequenceIntensity;
                 so{s}.boxColor(3, :, c) = st.ch(3) * boxSequenceIntensity;
-                so{s}.pdColor(1, c) = pd.ch(1) * boxSequenceIntensity(1);
+                %so{s}.pdColor(1, c) = pd.ch(1) * boxSequenceIntensity(1);
+                
+                %
+                if mod(c, 4) == 1
+                    so{s}.pdColor(1, c) = 255;
+                elseif mod(c, 4) == 2
+                    so{s}.pdColor(1, c) = 255;
+                elseif mod(c, 4) == 3
+                    so{s}.pdColor(1, c) = 0;
+                else
+                    so{s}.pdColor(1, c) = 0;
+                end
+                %
+
                 so{s}.pdColor(2, c) = pd.ch(2) * boxSequenceIntensity(1);
                 so{s}.pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
             end
@@ -137,10 +150,10 @@ try
     KbWait();
     pause(ti.pausetimebefore);
     
-    Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
-    vbl = Screen('Flip', myWindow);
-    Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
-    vbl = Screen('Flip', myWindow);
+    for z = 1:200
+        Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
+        vbl = Screen('Flip', myWindow);
+    end
     
     % draw the list of stimuli
     for s = 1:stimnum
@@ -148,21 +161,21 @@ try
             if i == 1
                 Screen('FillRect', myWindow, so{s}.boxColor(:, :, i), so{s}.boxes);
                 Screen('FillOval', myWindow, uint8(white * pd.ch), PHOTODIODE);
-                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.5) * ifi);
+                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.1) * ifi);
                 if ti.pauseafter1frame == 1
                     pause(ti.pausetimeafter1frame);
                 end
             elseif i == sl{s}.totalFrame + 1
                 Screen('FillOval', myWindow, uint8(white * pd.ch), PHOTODIODE);
-                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.5) * ifi);
+                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.1) * ifi);
             else
                 Screen('FillRect', myWindow, so{s}.boxColor(:, :, i), so{s}.boxes);
                 Screen('FillOval', myWindow, so{s}.pdColor(:, i), PHOTODIODE);
-                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.5) * ifi);
+                vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.1) * ifi);
             end
         end
         Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
-        vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.5) * ifi);
+        vbl = Screen('Flip', myWindow, vbl + (sl{s}.flipFrame - 0.1) * ifi);
         
         if s < stimnum
             pause(ti.pausetimebetween);
