@@ -122,7 +122,7 @@ try
                 so{s}.boxColor(3, :, c) = st.ch(3) * boxSequenceIntensity;
                 %so{s}.pdColor(1, c) = pd.ch(1) * boxSequenceIntensity(1);
                 
-                %
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 if mod(c, 4) == 1
                     so{s}.pdColor(1, c) = 255;
                 elseif mod(c, 4) == 2
@@ -132,7 +132,7 @@ try
                 else
                     so{s}.pdColor(1, c) = 0;
                 end
-                %
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
                 so{s}.pdColor(2, c) = pd.ch(2) * boxSequenceIntensity(1);
                 so{s}.pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
