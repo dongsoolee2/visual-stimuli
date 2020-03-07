@@ -13,7 +13,7 @@
   "name": "photodiode_parameters",
   "ch": [1, 0, 0],
   "center": [0.75, 0.4],
-  "radius": 110
+  "radius": 30
 }, {
   "name": "stimulus_parameters",
   "ch": [0, 1, 0],
@@ -30,22 +30,13 @@
   "name": "stimulus_list_for_stimdraw",
   "list": [{
         "name": "whitenoise",
-        "duration": 10,
-        "boxSize": 8,
-        "stimSize": 256,
-        "seed": 0,
-        "contrast": 1,
-        "binary": 1,
-        "framerate": 60
-    }, {
-        "name": "whitenoise",
-        "duration": 10,
+        "duration": 300,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 0,
         "contrast": 1,
         "binary": 0,
-        "framerate": 60
+        "framerate": 30
     }, {
         "name": "naturalmovie",
         "duration": 10,
@@ -54,7 +45,7 @@
         "seed": 6,
         "contrast": 1,
         "binary": 0,
-        "framerate": 60
+        "framerate": 30
     }, {
         "name": "naturalmovie",
         "duration": 10,
@@ -63,7 +54,7 @@
         "seed": 6,
         "contrast": 1,
         "binary": 0,
-        "framerate": 60
+        "framerate": 30
     }, {
         "name": "naturalmovie",
         "duration": 10,
@@ -72,7 +63,7 @@
         "seed": 6,
         "contrast": 1,
         "binary": 0,
-        "framerate": 60
+        "framerate": 30
     }, {
         "name": "naturalmovie",
         "duration": 10,
@@ -81,7 +72,7 @@
         "seed": 6,
         "contrast": 1,
         "binary": 0,
-        "framerate": 60
+        "framerate": 30
     }, {
         "name": "naturalmovie",
         "duration": 10,
@@ -90,24 +81,15 @@
         "seed": 6,
         "contrast": 1,
         "binary": 0,
-        "framerate": 60
+        "framerate": 30
     }, {
         "name": "naturalmovie",
-        "duration": 900,
+        "duration": 1800,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 9,
         "contrast": 1,
         "binary": 0,
-        "framerate": 60
-    }, {
-        "name": "naturalmovie",
-        "duration": 900,
-        "boxSize": 8,
-        "stimSize": 256,
-        "seed": 9,
-        "contrast": 1,
-        "binary": 0,
-        "framerate": 60
+        "framerate": 30
     }]
 }]

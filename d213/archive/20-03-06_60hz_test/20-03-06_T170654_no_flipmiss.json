@@ -1,0 +1,210 @@
+{
+	"obj": [
+		{
+			"name": "environment",
+			"location": "d213",
+			"lightsource": "dlp",
+			"colorchannel": "r\/uv\/b",
+			"os": "MS-Windows7"
+		},
+		{
+			"name": "screen_parameters",
+			"idx": 2,
+			"ch": [0,1,0],
+			"debugsize": [0,0,912,1140]
+		},
+		{
+			"name": "photodiode_parameters",
+			"ch": [1,0,0],
+			"center": [0.75,0.4],
+			"radius": 30
+		},
+		{
+			"name": "stimulus_parameters",
+			"ch": [0,1,0],
+			"offset": [50,10],
+			"binary": 1
+		},
+		{
+			"name": "timing",
+			"pausetimebefore": 0.5,
+			"pauseafter1frame": 0,
+			"pausetimeafter1frame": 100,
+			"pausetimebetween": 1,
+			"pausetimeafter": 0.5
+		},
+		{
+			"name": "stimulus_list_for_stimdraw",
+			"list": [
+				{
+					"name": "whitenoise",
+					"duration": 300,
+					"boxSize": 8,
+					"stimSize": 256,
+					"seed": 0,
+					"contrast": 1,
+					"binary": 0,
+					"framerate": 30,
+					"flipFrame": 2,
+					"flipTime": 0.03336423167,
+					"totalFrame": 8990,
+					"totalFrame60": 17980,
+					"numHBoxes": 32,
+					"xOffset": 378,
+					"yOffset": 450,
+					"numBoxes": 1024,
+					"numColumns": 1024,
+					"flipmiss": {
+						"_ArrayType_": "double",
+						"_ArraySize_": [0,2],
+						"_ArrayData_": []
+					}
+				},
+				{
+					"name": "naturalmovie",
+					"duration": 10,
+					"boxSize": 8,
+					"stimSize": 256,
+					"seed": 6,
+					"contrast": 1,
+					"binary": 0,
+					"framerate": 30,
+					"flipFrame": 2,
+					"flipTime": 0.03336423167,
+					"totalFrame": 290,
+					"totalFrame60": 580,
+					"numHBoxes": 32,
+					"xOffset": 378,
+					"yOffset": 450,
+					"numBoxes": 1024,
+					"numColumns": 1024,
+					"flipmiss": {
+						"_ArrayType_": "double",
+						"_ArraySize_": [0,2],
+						"_ArrayData_": []
+					}
+				},
+				{
+					"name": "naturalmovie",
+					"duration": 10,
+					"boxSize": 8,
+					"stimSize": 256,
+					"seed": 6,
+					"contrast": 1,
+					"binary": 0,
+					"framerate": 30,
+					"flipFrame": 2,
+					"flipTime": 0.03336423167,
+					"totalFrame": 290,
+					"totalFrame60": 580,
+					"numHBoxes": 32,
+					"xOffset": 378,
+					"yOffset": 450,
+					"numBoxes": 1024,
+					"numColumns": 1024,
+					"flipmiss": {
+						"_ArrayType_": "double",
+						"_ArraySize_": [0,2],
+						"_ArrayData_": []
+					}
+				},
+				{
+					"name": "naturalmovie",
+					"duration": 10,
+					"boxSize": 8,
+					"stimSize": 256,
+					"seed": 6,
+					"contrast": 1,
+					"binary": 0,
+					"framerate": 30,
+					"flipFrame": 2,
+					"flipTime": 0.03336423167,
+					"totalFrame": 290,
+					"totalFrame60": 580,
+					"numHBoxes": 32,
+					"xOffset": 378,
+					"yOffset": 450,
+					"numBoxes": 1024,
+					"numColumns": 1024,
+					"flipmiss": {
+						"_ArrayType_": "double",
+						"_ArraySize_": [0,2],
+						"_ArrayData_": []
+					}
+				},
+				{
+					"name": "naturalmovie",
+					"duration": 10,
+					"boxSize": 8,
+					"stimSize": 256,
+					"seed": 6,
+					"contrast": 1,
+					"binary": 0,
+					"framerate": 30,
+					"flipFrame": 2,
+					"flipTime": 0.03336423167,
+					"totalFrame": 290,
+					"totalFrame60": 580,
+					"numHBoxes": 32,
+					"xOffset": 378,
+					"yOffset": 450,
+					"numBoxes": 1024,
+					"numColumns": 1024,
+					"flipmiss": {
+						"_ArrayType_": "double",
+						"_ArraySize_": [0,2],
+						"_ArrayData_": []
+					}
+				},
+				{
+					"name": "naturalmovie",
+					"duration": 10,
+					"boxSize": 8,
+					"stimSize": 256,
+					"seed": 6,
+					"contrast": 1,
+					"binary": 0,
+					"framerate": 30,
+					"flipFrame": 2,
+					"flipTime": 0.03336423167,
+					"totalFrame": 290,
+					"totalFrame60": 580,
+					"numHBoxes": 32,
+					"xOffset": 378,
+					"yOffset": 450,
+					"numBoxes": 1024,
+					"numColumns": 1024,
+					"flipmiss": {
+						"_ArrayType_": "double",
+						"_ArraySize_": [0,2],
+						"_ArrayData_": []
+					}
+				},
+				{
+					"name": "naturalmovie",
+					"duration": 1800,
+					"boxSize": 8,
+					"stimSize": 256,
+					"seed": 9,
+					"contrast": 1,
+					"binary": 0,
+					"framerate": 30,
+					"flipFrame": 2,
+					"flipTime": 0.03336423167,
+					"totalFrame": 53940,
+					"totalFrame60": 107880,
+					"numHBoxes": 32,
+					"xOffset": 378,
+					"yOffset": 450,
+					"numBoxes": 1024,
+					"numColumns": 1024,
+					"flipmiss": {
+						"_ArrayType_": "double",
+						"_ArraySize_": [0,2],
+						"_ArrayData_": []
+					}
+				}
+			]
+		}
+	]
+}
