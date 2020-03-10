@@ -176,8 +176,8 @@ try
         Screen('FillOval', myWindow, uint8(white * pd.ch), PHOTODIODE);
         [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
         if mbp > 0
-            1
-            mbp
+            %1
+            %mbp
             flipmiss_temp(ms, :) = [1, mbp];
             ms = ms + 1;
         end
@@ -188,11 +188,15 @@ try
         % i = 2:sl{s}.totalFrame60 (from 2nd frame to last frame)
         for i = 2:sl{s}.totalFrame60
             Screen('FillRect', myWindow, so{s}.boxColor(:, :, i), so{s}.boxes);
-            Screen('FillOval', myWindow, so{s}.pdColor(:, i), PHOTODIODE);
+            if mod(i, 3600) == 1
+                Screen('FillOval', myWindow, uint8(white * pd.ch), PHOTODIODE);
+            else
+                Screen('FillOval', myWindow, so{s}.pdColor(:, i), PHOTODIODE);
+            end
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
             if mbp > 0
-                i
-                mbp
+                %i
+                %mbp
                 flipmiss_temp(ms, :) = [i, mbp];
                 ms = ms + 1;
             end
