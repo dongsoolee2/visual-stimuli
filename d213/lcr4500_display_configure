@@ -1,2 +1,2 @@
-Screen('ConfigureDisplay', 'Scanout', 1, 0, 912, 1140)
+Screen('ConfigureDisplay', 'Scanout', 1, 0, 912, 1140);
 SetResolution(1, 912, 1140, 60);
