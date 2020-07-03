@@ -9,7 +9,7 @@ function rfmap(duration, boxSize, stimSize, seed, contrast)
 % contrast [0, 1] contrast of each checker
 %
 % by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-16;
-%                 edited 20-01-07)
+%                 edited 20-01-07; edited for linux 20-07-02)
 
 % number of arguments?
 if nargin == 0
@@ -51,7 +51,7 @@ elseif nargin == 5
 end
 
 % load configuration file.
-config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config.json');
+config = loadjson('/home/dlee/Documents/MATLAB/visual-stimuli/d213/config.json');
 ev = config{1};  % environment configuration
 sc = config{2};  % screen configuration
 pd = config{3};  % photodiode configuration
@@ -63,7 +63,8 @@ try
     %       and provide a consistent mapping of key codes
     AssertOpenGL;
     KbName('UnifyKeyNames');                        %  = PsychDefaultSetup(1);
-    
+
+    %Screen('Preference', 'ScreenToHead', 1, 1, 0); % use this in a real experiment
     Screen('Preference', 'SkipSyncTests', 0);       % don't use ('SkipSyncTests', 1) in a real experiment
     
     % load KbCheck because it takes some time to read for the first time
@@ -75,7 +76,7 @@ try
     myScreen = sc.idx;
     
     % open an on screen window
-    if myScreen == 2
+    if myScreen == 1
         [myWindow, windowRect] = Screen('OpenWindow', myScreen, 255/2 * sc.ch);
     else
         [myWindow, windowRect] = Screen('OpenWindow', myScreen, 255/2 * sc.ch, sc.debugsize);
@@ -144,9 +145,13 @@ try
     % prepare for the first screen
     Screen('FillOval', myWindow, black, PHOTODIODE);
     Screen('Flip', myWindow);
+    HideCursor();
 
     % wait for keyboard input
     KbWait();
+    KbEventFlush();
+    KbQueueCreate();
+    KbQueueStart();
     pause(ti.pausetimebefore);
 
     Screen('FillOval', myWindow, black, PHOTODIODE);

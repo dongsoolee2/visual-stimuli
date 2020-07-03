@@ -7,7 +7,7 @@ function stepflash(duration, frequency, boxSize, stimSize)
 % boxSize and stimSize are the parameters of DL_rfmap (for consistency)
 %
 % by Dongsoo Lee (edited 17-04-04; edited for mouse exp 19-05-20;
-%                 edited 20-01-08)
+%                 edited 20-01-08; edited for linux 20-07-02)
 
 % number of arguments?
 if nargin == 0
@@ -50,7 +50,8 @@ try
     %       and provide a  consistent mapping of key codes
     AssertOpenGL;
     KbName('UnifyKeyNames');                        %  = PsychDefaultSetup(1);
-    
+
+    %Screen('Preference', 'ScreenToHead', 1, 1, 0); % use this in a real experiment
     Screen('Preference', 'SkipSyncTests', 0);       % don't use ('SkipSyncTests', 1) in a real experiment
     
     % load KbCheck because it takes some time to read for the first time
@@ -109,12 +110,16 @@ try
     % stepindicator
     stepIndicator = 1;
     
-    % prepare for the first screen
+% prepare for the first screen
     Screen('FillOval', myWindow, black, PHOTODIODE);
     Screen('Flip', myWindow);
+    HideCursor();
 
     % wait for keyboard input
     KbWait();
+    KbEventFlush();
+    KbQueueCreate();
+    KbQueueStart();
     pause(ti.pausetimebefore);
 
     Screen('FillOval', myWindow, black, PHOTODIODE);

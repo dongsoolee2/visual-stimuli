@@ -2,10 +2,10 @@ function ex = stimdraw(expmode)
 % stimdraw(stim)
 % stimdraw displays a list of stimuli in configuration file (config.json).
 %
-% by Dongsoo Lee (edited 20-01-16)
+% by Dongsoo Lee (edited 20-01-16; edited for linux 20-07-02)
 
 % load configuration file.
-config = loadjson('/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/config.json');
+config = loadjson('/home/dlee/Documents/MATLAB/visual-stimuli/d213/config.json');
 ev = config{1};             % environment configuration
 sc = config{2};             % screen configuration
 pd = config{3};             % photodiode configuration
@@ -13,8 +13,6 @@ st = config{4};             % stimulus configuration
 ti = config{5};             % pausetime configuration
 slist = config{6};          % stimuli list
 sl = slist.list;            % 'sl' for save, 'so' for without save
-framebuffer = 0.7;
-flipmissthresholdweight = 1/20;
 % duration [sec]
 % boxSize [pixel] is size of each checker
 % stimSize [pixel] is size of the whole stimuli
@@ -23,12 +21,15 @@ flipmissthresholdweight = 1/20;
 % framerate [Hz] frame per second
 stimnum = size(sl, 2);          % the total number of stimuli
 
+framebuffer = 0.5;
+
 try
     % check if the installed Psychtoolbox is based on OpenGL ('Screen()'),
     %       and provide a consistent mapping of key codes
     AssertOpenGL;
     KbName('UnifyKeyNames');                        %  = PsychDefaultSetup(1);
     
+    %Screen('Preference', 'ScreenToHead', 1, 1, 0); % use this in a real experiment
     Screen('Preference', 'SkipSyncTests', 0);       % don't use ('SkipSyncTests', 1) in a real experiment
     
     % load KbCheck because it takes some time to read for the first time
@@ -40,10 +41,10 @@ try
     myScreen = sc.idx;
     
     % open an on screen window
-    if myScreen == 2
-        [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(127 * sc.ch));
+    if myScreen == 1
+        [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(255/2* sc.ch));
     else
-        [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(127 * sc.ch), sc.debugsize);
+        [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(255/2 * sc.ch), sc.debugsize);
     end
     Screen('ColorRange', myWindow, 255, [], 0);
     
@@ -60,7 +61,6 @@ try
     %flipFrame = round(0.03/ifi);    % will be defined for each stimulus
     %flipTime = flipFrame * ifi;
     %totalFrame = floor((duration/flipTime)/10) * 10;
-    flipmissthreshold = flipmissthresholdweight * ifi;
     
     % get the size of the on screen window
     [xSize, ySize] = Screen('WindowSize', myWindow);
@@ -136,9 +136,13 @@ try
     % prepare for the first screen
     Screen('FillOval', myWindow, uint8(black), PHOTODIODE);
     Screen('Flip', myWindow);
+    HideCursor();
     
     % wait for keyboard input
     KbWait();
+    KbEventFlush();
+    KbQueueCreate();
+    KbQueueStart();
     if ti.pausetimebefore > 0
         pause(ti.pausetimebefore);
     end
@@ -212,7 +216,7 @@ try
     ex{6} = slist;
     if expmode == 1
         dt = datetime('now', 'Format', 'yy-MM-dd''_T''HHmmss');
-        savejson('obj', ex, 'filename', '/Users/Administrator/Documents/MATLAB/visual-stimuli/d213/archive/' + string(dt) + '.json');
+        savejson('obj', ex, 'filename', '/home/dlee/Documents/MATLAB/visual-stimuli/d213/archive/' + string(dt) + '.json');
     end
 catch exception
     Priority(0);
