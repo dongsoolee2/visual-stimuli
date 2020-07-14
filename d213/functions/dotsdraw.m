@@ -172,6 +172,13 @@ try
         for i = 1:sl{s}.totalFrame60
             Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
             Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
+            %
+            %
+            % rotate dots then draw dots
+            Screen('Drawdots', myWindow, round(rand(2, 100000) * 600), 1, uint8(zeros(3, 100000)));
+            %
+            %
+            %
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
             if mbp > 0
                 i
