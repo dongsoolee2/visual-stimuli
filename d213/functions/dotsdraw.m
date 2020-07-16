@@ -130,10 +130,16 @@ try
                 so{s}.pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
             end
         end
-        so{s}.boxColor = uint8(upsample_s(so{s}.boxColor, 2, 3));                                 
-        so{s}.pdColor = uint8(upsample_s(0.05 * so{s}.pdColor, 2, 2));
+        %so{s}.boxColor = uint8(upsample_s(so{s}.boxColor, 2, 3));                                 
+        %so{s}.pdColor = uint8(upsample_s(0.05 * so{s}.pdColor, 2, 2));
+        so{s}.boxColor = uint8(repelem(so{s}.boxColor, 1, 1, 2));                                 
+        so{s}.pdColor = uint8(repelem(0.05 * so{s}.pdColor, 1, 2));
         % first frame pd
         so{s}.pdColor(:, 1) = uint8(white * pd.ch);
+        
+        % convert to dots
+        [so{s}.raw_dots, so{s}.dotColor] = boxColor2dotColor(so{s}.boxColor, sl{s}.boxSize);
+        so{s}.dots = rotate_dots(so{s}.raw_dots, 0, 0);
     end
     
     % prepare for the first screen
@@ -170,15 +176,10 @@ try
                
         % i = 1:sl{s}.totalFrame60 (from 1st frame to last frame)
         for i = 1:sl{s}.totalFrame60
-            Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
+            % draw dots
+            Screen('DrawDots', myWindow, so{s}.dots, 1, so{s}.dotColor(:, :, i));
+            %Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
             Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
-            %
-            %
-            % rotate dots then draw dots
-            Screen('Drawdots', myWindow, round(rand(2, 100000) * 600), 1, uint8(zeros(3, 100000)));
-            %
-            %
-            %
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
             if mbp > 0
                 i
@@ -215,7 +216,7 @@ try
     Screen('CloseAll');
     ShowCursor();
     ListenChar(0);
-    
+   
     % save experiment configuration as .json file
     ex{1} = ev;
     ex{2} = sc;
@@ -228,6 +229,7 @@ try
         dt = datetime('now', 'Format', 'yy-MM-dd''_T''HHmmss');
         savejson('obj', ex, 'filename', '/home/dlee/Documents/MATLAB/visual-stimuli/d213/archive/' + string(dt) + '.json');
     end
+    
 catch exception
     Priority(0);
     Screen('CloseAll');

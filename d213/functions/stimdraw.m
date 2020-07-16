@@ -130,8 +130,10 @@ try
                 so{s}.pdColor(3, c) = pd.ch(3) * boxSequenceIntensity(1);
             end
         end
-        so{s}.boxColor = uint8(upsample_s(so{s}.boxColor, 2, 3));                                 
-        so{s}.pdColor = uint8(upsample_s(0.05 * so{s}.pdColor, 2, 2));
+        %so{s}.boxColor = uint8(upsample_s(so{s}.boxColor, 2, 3));                                 
+        %so{s}.pdColor = uint8(upsample_s(0.05 * so{s}.pdColor, 2, 2));
+        so{s}.boxColor = uint8(repelem(so{s}.boxColor, 1, 1, 2));                                 
+        so{s}.pdColor = uint8(repelem(0.05 * so{s}.pdColor, 1, 2));
         % first frame pd
         so{s}.pdColor(:, 1) = uint8(white * pd.ch);
     end
