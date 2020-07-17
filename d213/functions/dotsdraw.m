@@ -139,7 +139,7 @@ try
         
         % convert to dots
         [so{s}.raw_dots, so{s}.dotColor] = boxColor2dotColor(so{s}.boxColor, sl{s}.boxSize);
-        so{s}.dots = rotate_dots(so{s}.raw_dots, st.offset(2), st.offset(1));
+        so{s}.dots = rotate_dots(so{s}.raw_dots, st.offset(2), st.offset(1));     % offset(1;'x'=x2), offset(2;'y'=x1)
     end
     
     % prepare for the first screen
@@ -203,7 +203,7 @@ try
             end
         end
         
-        % delete if there are less than 100 flipmiss
+        % saves if there are (less than 100) flipmiss
         sl{s}.flipmiss = reshape(nonzeros(flipmiss_temp), [], 2);       
     end
     

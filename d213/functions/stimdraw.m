@@ -197,7 +197,7 @@ try
             end
         end
         
-        % delete if there are less than 100 flipmiss
+        % saves if there are (less than 100) flipmiss
         sl{s}.flipmiss = reshape(nonzeros(flipmiss_temp), [], 2);       
     end
     
