@@ -6,7 +6,7 @@
   "os": "Linux-Ubuntu18.04.4"
 }, {
   "name": "screen_parameters",
-  "idx": 0,
+  "idx": 1,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 912, 1140]
 }, {
@@ -35,7 +35,7 @@
         "stimSize": 256,
         "seed": 0,
         "contrast": 1,
-        "binary": 0,
+        "binary": 1,
         "framerate": 30
     }, {
     	"name": "whitenoise",
@@ -75,7 +75,7 @@
         "framerate": 30
     }, {
         "name": "whitenoise",
-        "duration": 20,
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 0,
@@ -84,7 +84,7 @@
         "framerate": 30
     }, {
         "name": "whitenoise",
-        "duration": 20,
+        "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 0,
