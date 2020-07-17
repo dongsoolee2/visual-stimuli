@@ -71,9 +71,9 @@ try
     % set photodiode
     PHOTODIODE = ones(4, 1);
     PHOTODIODE(1, :) = round(pd.center(1) * xSize - pd.radius);
-    PHOTODIODE(2, :) = round(pd.center(2) * ySize - pd.radius);
+    PHOTODIODE(2, :) = round(pd.center(2) * ySize - 2 * pd.radius);
     PHOTODIODE(3, :) = round(pd.center(1) * xSize + pd.radius);
-    PHOTODIODE(4, :) = round(pd.center(2) * ySize + pd.radius);
+    PHOTODIODE(4, :) = round(pd.center(2) * ySize + 2 * pd.radius);
     
     for s = 1:stimnum
         % calculate fliptime
@@ -212,6 +212,7 @@ try
     ListenChar(0);
     
     % save experiment configuration as .json file
+    ev.mode = 'pattern/stimdraw.m';
     ex{1} = ev;
     ex{2} = sc;
     ex{3} = pd;

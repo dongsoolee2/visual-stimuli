@@ -139,7 +139,7 @@ try
         
         % convert to dots
         [so{s}.raw_dots, so{s}.dotColor] = boxColor2dotColor(so{s}.boxColor, sl{s}.boxSize);
-        so{s}.dots = rotate_dots(so{s}.raw_dots, st.offset(2), st.offset(1));
+        so{s}.dots = rotate_dots(so{s}.raw_dots, 0, 0);
     end
     
     % prepare for the first screen
@@ -177,8 +177,8 @@ try
         % i = 1:sl{s}.totalFrame60 (from 1st frame to last frame)
         for i = 1:sl{s}.totalFrame60
             % draw dots
-            %Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
             Screen('DrawDots', myWindow, so{s}.dots, 1, so{s}.dotColor(:, :, i));
+            %Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
             Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
             if mbp > 0
@@ -218,7 +218,6 @@ try
     ListenChar(0);
    
     % save experiment configuration as .json file
-    ev.mode = 'pattern/dotsdraw.m';
     ex{1} = ev;
     ex{2} = sc;
     ex{3} = pd;
