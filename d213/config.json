@@ -6,7 +6,7 @@
   "os": "Linux-Ubuntu18.04.4"
 }, {
   "name": "screen_parameters",
-  "idx": 1,
+  "idx": 0,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 912, 1140]
 }, {
