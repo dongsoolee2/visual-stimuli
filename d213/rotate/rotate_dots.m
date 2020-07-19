@@ -11,8 +11,15 @@ dots = zeros(size(raw_dots));
 offset1_ = floor(offset1/2) * 2;    % offset1_ should be an even number
 offset2_ = floor(offset2/2) * 2;    % this is just in case 
 for i = 1:size(raw_dots, 2)
-    % 571 = (1140/2) + 1, 328 = (912 - 256)/2
-    [x1_, x2_] = rotate_(raw_dots(1, i), raw_dots(2, i), 571, 328, offset1_, offset2_); 
+    % 571 = (1140/2) + 1 (outdated), 328 = (912 - 256)/2
+    % 571 changed to 570 (20-07-18); this is important and 
+    % depends on the first start (row) index of DMD arrays.
+    % This should be located in one of the outermost pixels.
+    % If the parity of this number is changed, 
+    % the visual stimulation is not pixel-accurate.
+    % This is based on the manual of DLPC350 chip by Texas Instruments,
+    % but the actual projection will be validated by monitoring with a camera.
+    [x1_, x2_] = rotate_(raw_dots(1, i), raw_dots(2, i), 570, 328, offset1_, offset2_);
     dots(2, i) = x1_;               % Psychtoolbox Screen('DrawDots') receives input as (x, y)
     dots(1, i) = x2_; 
 end
