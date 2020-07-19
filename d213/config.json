@@ -31,7 +31,7 @@
   "list": [{
         "name": "whitenoise",
         "duration": 10,
-        "boxSize": 1,
+        "boxSize": 8,
         "stimSize": 256,
         "seed": 0,
         "contrast": 1,

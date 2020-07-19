@@ -9,7 +9,9 @@ function dots = rotate_dots(raw_dots, offset1, offset2)
 
 dots = zeros(size(raw_dots));
 offset1_ = floor(offset1/2) * 2;    % offset1_ should be an even number
-offset2_ = floor(offset2/2) * 2;    % this is just in case 
+offset2_ = floor(offset2/2) * 2;    % this is just in case
+x1_0 = 1140/2;
+x2_0 = (912 - sqrt(size(raw_dots, 2)))/2;
 for i = 1:size(raw_dots, 2)
     % 571 = (1140/2) + 1 (outdated), 328 = (912 - 256)/2
     % 571 changed to 570 (20-07-18); this is important and 
@@ -19,7 +21,7 @@ for i = 1:size(raw_dots, 2)
     % the visual stimulation is not pixel-accurate.
     % This is based on the manual of DLPC350 chip by Texas Instruments,
     % but the actual projection will be validated by monitoring with a camera.
-    [x1_, x2_] = rotate_(raw_dots(1, i), raw_dots(2, i), 570, 328, offset1_, offset2_);
+    [x1_, x2_] = rotate_(raw_dots(1, i), raw_dots(2, i), x1_0, x2_0, offset1_, offset2_);
     dots(2, i) = x1_;               % Psychtoolbox Screen('DrawDots') receives input as (x, y)
     dots(1, i) = x2_; 
 end

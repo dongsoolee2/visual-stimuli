@@ -199,8 +199,8 @@ try
         for i = 1:sl{s}.totalFrame60
             % draw dots
             %Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
-            Screen('DrawDots', myWindow, dots, 1, dotColor(:, :, i));
-            Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
+            Screen('DrawDots', myWindow, dots, 1, dotColor(:, :, i), [], 0);
+	    Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
             if mbp > 0
                 %i
