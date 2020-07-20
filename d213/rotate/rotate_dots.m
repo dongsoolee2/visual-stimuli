@@ -4,6 +4,8 @@ function dots = rotate_dots(raw_dots, offset1, offset2)
 % This function is for LightCrafter4500 pattern mode.
 % (offset1 in the direction of row, offset2 in the direction of column)
 % offset1 should be an even number (or, will be changed to even number).
+% reference: hibiscus, Alexandre Marcireau et al., December 2018 (biorxiv)
+%            https://github.com/neuromorphic-paris/hibiscus
 %
 % by Dongsoo Lee (20-07-15)
 
