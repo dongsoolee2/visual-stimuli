@@ -1,6 +1,5 @@
 .DS_Store
 .ipynb_checkpoints
-*.pdf
 
 __pycache__/
 /venv
