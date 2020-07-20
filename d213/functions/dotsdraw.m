@@ -34,7 +34,7 @@ try
     
     % load KbCheck because it takes some time to read for the first time
     while KbCheck(); end
-    istenChar(2);                                  	% suppress output of keypresses
+    ListenChar(2);                                  % suppress output of keypresses
     
     % get the screen numbers
     myScreen = sc.idx;
@@ -197,7 +197,7 @@ try
         % i = 1:sl{s}.totalFrame60 (from 1st frame to last frame)
         for i = 1:sl{s}.totalFrame60
             % draw dots
-            Screen('FillRect', myWindow, boxColor(:, :, i), boxes);	% this is for boxes
+            %Screen('FillRect', myWindow, boxColor(:, :, i), boxes);	% this is for boxes
             Screen('DrawDots', myWindow, dots, 1, dotColor(:, :, i), [], 0);
             Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
