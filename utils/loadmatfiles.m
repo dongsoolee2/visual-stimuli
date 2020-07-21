@@ -6,11 +6,21 @@ CATEGORY = s.name;
 NUM_BOXES = round(s.stimSize/s.boxSize);
 
 % Load movie file with seed
+
+% This is for d213 Windows 7 machine
+%if CATEGORY == "naturalmovie"
+%    filedir = '/Users/Administrator/Documents/MATLAB/visual-stimuli/matrix/naturalmovie/';
+%elseif CATEGORY == "naturalscene"
+%    filedir = '/Users/Administrator/Documents/MATLAB/visual-stimuli/matrix/naturalscene/';
+%end
+
+% This is for d213 new linux machien
 if CATEGORY == "naturalmovie"
-    filedir = '/Users/Administrator/Documents/MATLAB/visual-stimuli/matrix/naturalmovie/';
+    filedir = '/home/dlee/Documents/MATLAB/visual-stimuli/matrix/naturalmovie/';
 elseif CATEGORY == "naturalscene"
-    filedir = '/Users/Administrator/Documents/MATLAB/visual-stimuli/matrix/naturalscene/';
+    filedir = '/home/dlee/Documents/MATLAB/visual-stimuli/matrix/naturalscene/';
 end
+
 fileseed = num2str(SEED);
 fileformat = '*.mat';
 filesearch = dir(join([filedir, fileseed, '/', fileformat], ''));

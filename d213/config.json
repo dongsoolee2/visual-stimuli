@@ -29,13 +29,13 @@
 }, {
   "name": "stimulus_list_for_stimdraw",
   "list": [{
-        "name": "whitenoise",
+        "name": "naturalmovie",
         "duration": 10,
         "boxSize": 8,
         "stimSize": 256,
-        "seed": 0,
+        "seed": 9,
         "contrast": 1,
-        "binary": 1,
+        "binary": 0,
         "framerate": 30
     }, {
     	"name": "whitenoise",
