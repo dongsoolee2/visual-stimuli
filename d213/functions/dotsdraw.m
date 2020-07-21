@@ -208,7 +208,7 @@ try
                 ms = ms + 1;
             end
         end
-        
+
         % i = sl{s}.totalFrame60 + 1 (after original frame, 'white pd')
         Screen('FillOval', myWindow, whiteframe, PHOTODIODE);
         [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
