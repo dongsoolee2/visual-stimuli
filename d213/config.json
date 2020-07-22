@@ -6,7 +6,7 @@
   "os": "Linux-Ubuntu18.04.4"
 }, {
   "name": "screen_parameters",
-  "idx": 0,
+  "idx": 1,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 912, 1140]
 }, {
@@ -16,7 +16,7 @@
   "radius": 80
 }, {
   "name": "stimulus_parameters",
-  "ch": [0, 1, 0],
+  "ch": [1, 1, 0],
   "offset": [50, 10],
   "binary": 1
 }, {
