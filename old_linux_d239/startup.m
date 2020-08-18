@@ -1,0 +1,1 @@
+Screen('Preference', 'ScreenToHead', 1, 1, 0);
