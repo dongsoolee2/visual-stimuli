@@ -3,7 +3,7 @@ function linearcheck(n)
 %
 % Show a full screen of n linearly-space values.
 %
-% This stimulus is used to linearize and check the linearity of 
+% This stimulus is used to linearize and check the linearity of
 % a stimulus monitor. It presents `n` grey-scale, full-screen
 % luminance values on the range [0, 255]. The measured luminace
 % values can be used to generate either a single gamma-correction
@@ -18,11 +18,11 @@ function linearcheck(n)
 % number of arguments?
 if nargin == 0
     n = 17;
-
+end
 % parameters
 % -----------------------------------------------------------
-REPEAT = 5;
-PAUSETIME = 0.5;  
+REPEAT = 10;
+PAUSETIME = 0.5;
 % -----------------------------------------------------------
 
 try
@@ -55,9 +55,6 @@ try
     flipFrame = round(0.03/ifi);
     flipTime = flipFrame * ifi;
     
-    % get the size of the on screen window
-    [xSize, ySize] = Screen('WindowSize', myWindow);
-    
     % set intensity
     intensity = [0:256/(n-1):256];  % CalibrateMonitorPhotometer.m
     
@@ -70,24 +67,29 @@ try
     KbEventFlush();
     KbQueueCreate();
     KbQueueStart();
-    pause(PAUSETIME);
-        
-    % to start recording computer	
+    %pause(PAUSETIME);
+    
+    % to start recording computer
     Screen('FillRect', myWindow, white);
     vbl = Screen('Flip', myWindow);
-    
+  
     % draw intensities
-    for i = 1:n
-    	for r = 1:REPEAT
-    	    Screen('FillRect', myWindow, intensity(i));
-    	    vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.5) * ifi);
-    	end
+    for r = 1:REPEAT
+        for i = n:-1:1
+            for rr = 1:REPEAT
+                Screen('FillRect', myWindow, intensity(i));
+                vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.5) * ifi);
+            end
+        end
     end
+    
+    Screen('FillRect', myWindow, white);
+    vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.5) * ifi);
     
     Screen('FillRect', myWindow, black);
     vbl = Screen('Flip', myWindow, vbl + (flipFrame - 0.5) * ifi);
     
-    pause(10);
+    pause (10);
     
     Screen('CloseAll');
     ShowCursor();
@@ -97,4 +99,5 @@ catch exception
     ShowCursor();
     ListenChar(0);
     exception.identifier();
+end
 end
