@@ -194,7 +194,7 @@ try
             Screen('FillRect', myWindow, boxColor(:, :, i), boxes);
             Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
-            if mbp > 0
+	    if mbp > 0
                 %i
                 %mbp
                 flipmiss_temp(ms, :) = [i, mbp];
