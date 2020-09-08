@@ -60,6 +60,7 @@ try
     
     % open an on screen window
     [myWindow, windowRect] = Screen('OpenWindow', myScreen, 255/2);
+    %[myWindow, windowRect] = Screen('OpenWindow', myScreen, 0);
     Screen('ColorRange', myWindow, 1, [], 1);
     % set the maximum priority number
     Priority(MaxPriority(myWindow));
