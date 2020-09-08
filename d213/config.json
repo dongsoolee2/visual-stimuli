@@ -12,12 +12,12 @@
 }, {
   "name": "photodiode_parameters",
   "ch": [1, 0, 0],
-  "center": [0.8, 0.4],
+  "center": [0.75, 0.35],
   "radius": 80
 }, {
   "name": "stimulus_parameters",
   "ch": [0, 1, 0],
-  "offset": [50, 10],
+  "offset": [20, 10],
   "binary": 1
 }, {
   "name": "timing",
