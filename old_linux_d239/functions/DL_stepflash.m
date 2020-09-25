@@ -65,8 +65,8 @@ try
     
     % Load gamma
     %Screen('ColorRange', myWindow, 255, [], 0);
-    %load /home/dlee/Documents/MATLAB/visual-stimuli/d239/calibration/20-09-23_gamma_DL.mat
-    %[oldTable, sc] = Screen('LoadNormalizedGammaTable', myWindow, gammaTable1 * [1 1 1]);
+    %load /home/dlee/Documents/MATLAB/visual-stimuli/d239/calibration/20-09-24-2_gamma_DL.mat
+    %[oldTable, sc] = Screen('LoadNormalizedGammaTable', myWindow, gammaTable2 * [1 1 1]);
     
     % set the maximum priority number
     Priority(MaxPriority(myWindow));
