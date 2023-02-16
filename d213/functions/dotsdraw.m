@@ -43,7 +43,7 @@ try
     if myScreen == 1
         Screen('ConfigureDisplay', 'Scanout', myScreen, 0, 912, 1140);	
         SetResolution(myScreen, 912, 1140, 60);
-        [myWindow_, ~] = Screen('OpenWindow', myScreen - 1, uint8(255/2 * sc.ch));
+        [~, ~] = Screen('OpenWindow', myScreen - 1, uint8(255/2 * sc.ch));
         [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(255/2 * sc.ch));
     else
         [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(255/2 * sc.ch), sc.debugsize);
