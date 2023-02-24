@@ -43,10 +43,13 @@ try
     if myScreen == 1
         Screen('ConfigureDisplay', 'Scanout', myScreen, 0, 912, 1140);	
         SetResolution(myScreen, 912, 1140, 60);
-        [~, ~] = Screen('OpenWindow', myScreen - 1, uint8(255/2 * sc.ch));
-        [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(255/2 * sc.ch));
+        %[~, ~] = Screen('OpenWindow', myScreen - 1, uint8(255/2 * sc.ch));
+        %[myWindow, ~] = Screen('OpenWindow', myScreen, uint8(255/2 * sc.ch));
+        [~, ~] = Screen('OpenWindow', myScreen - 1, uint8(0 * sc.ch));  % black background
+        [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(0 * sc.ch));
     else
-        [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(255/2 * sc.ch), sc.debugsize);
+        %[myWindow, ~] = Screen('OpenWindow', myScreen, uint8(255/2 * sc.ch), sc.debugsize);
+        [myWindow, ~] = Screen('OpenWindow', myScreen, uint8(0 * sc.ch), sc.debugsize);
     end
     Screen('ColorRange', myWindow, 255, [], 0);
     
@@ -138,11 +141,11 @@ try
         so{s}.pdColor(:, 1) = uint8(white * pd.ch);
         
         % override the background color with photodiode (blending)
-        for ch = 1:3
-            if sc.ch(ch) == 1 && pd.ch(ch) == 0
-                so{s}.pdColor(ch, :) = uint8(meanIntensity);
-            end
-        end
+        %for ch = 1:3
+        %    if sc.ch(ch) == 1 && pd.ch(ch) == 0
+        %        so{s}.pdColor(ch, :) = uint8(meanIntensity);
+        %    end
+        %end
         
         % convert to dots and rotate the dots
         [so{s}.raw_dots, so{s}.dotColor] = boxColor2dotColor(so{s}.boxColor, sl{s}.boxSize);
@@ -150,7 +153,9 @@ try
     end
     
     % define black and white frame (blended with the background screen)
-    defaultframe = uint8(meanIntensity * sc.ch);
+    % for photodiode
+    %defaultframe = uint8(meanIntensity * sc.ch); 
+    defaultframe = uint8(meanIntensity * [0, 0, 0]); % photodiode not related to stimuli
     whiteframe = defaultframe;
     blackframe = defaultframe;
     for ch = 1:3
