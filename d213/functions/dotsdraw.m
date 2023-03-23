@@ -180,6 +180,8 @@ try
     end
     Screen('FillOval', myWindow, blackframe, PHOTODIODE);
     Screen('Flip', myWindow);
+        
+    sl{1}.totalFrame60
     
     % draw the list of stimuli
     for s = 1:stimnum
@@ -194,8 +196,6 @@ try
         ms = 1;
         
         % prepare (repeated to avoid "first frame delay")
-        Screen('FillOval', myWindow, blackframe, PHOTODIODE);
-        vbl = Screen('Flip', myWindow);
         Screen('FillOval', myWindow, blackframe, PHOTODIODE);
         vbl = Screen('Flip', myWindow);
         
