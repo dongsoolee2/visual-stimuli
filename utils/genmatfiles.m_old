@@ -2,19 +2,19 @@
 
 % parameters ------------------------------
 % choose seed
-SEED = 101;                 % start from 101
+SEED = 9;                   % 3, 6, 9
 % Total number of stimuli block to generate 
-DURATION = 150;             % frame (5 sec for 30 Hz) * used 150 (movie), 60 (scene)
+DURATION = 60;              % frame (5 sec for 30 Hz) * used 150 (movie), 60 (scene)
 N = 54000/DURATION;         % e.g.) 360 blocks * 150 frames/block = 54000
 % Movie or scene?
-MOVIE0_SCENE1 = 0;
+MOVIE0_SCENE1 = 1;
 if MOVIE0_SCENE1
     FRAME_FOR_SCENE = 1;
 end
 % -----------------------------------------
 
 % Load natural movie file
-load("/home/dlee/Documents/MATLAB/visual-stimuli/database/movies/mov_f13028_intensity.mat"); 
+load("/Users/dlee/visual-stimuli/database/movies/mov_f13028_intensity.mat"); 
 
 % Parameters of mat file
 TOTAL_FRAME = 13028;        % T
@@ -23,12 +23,8 @@ X2_LENGTH = 100;            % x (+ means rightward direction)
 X1_LENGTH_BUFFER = 240;
 X2_LENGTH_BUFFER = 300;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
 % Load jitter sequence and transfomation parameters (in deg)
-load("/home/dlee/Documents/MATLAB/visual-stimuli/utils/jitter.mat", "jitter");  % (2, 54000)
+load("/Users/dlee/visual-stimuli/utils/jitter.mat", "jitter");  % (2, 54000)
 RET_UM_PER_DEG = 30.0;      % mouse um / deg
 DLP_PX_PER_UM = 0.1;        % dlp px / um
 BOX_PER_DLP_PX = 1/8;       % box / dlp px
@@ -39,10 +35,10 @@ jitter_coef = (RET_UM_PER_DEG * DLP_PX_PER_UM * BOX_PER_DLP_PX * DOWNSAMPLE);
 rng(SEED);                  % T
 T_START_IDX = ceil((TOTAL_FRAME - DURATION - 2) * rand(1, N));
 T_END_IDX = T_START_IDX + DURATION - 1;
-% y
+rng(SEED + 1);              % y
 X1_START_IDX = ceil((20 - 1) * rand(1, N));
 X1_END_IDX = X1_START_IDX + X1_LENGTH + X1_LENGTH_BUFFER - 1;
-% x
+rng(SEED + 2);              % x
 X2_START_IDX = ceil((220 - 1) * rand(1, N));
 X2_END_IDX = X2_START_IDX + X2_LENGTH + X2_LENGTH_BUFFER - 1;
 
