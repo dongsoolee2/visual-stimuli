@@ -39,7 +39,7 @@
         "framerate": 30
     }, {
         "name": "naturalmovie",
-        "duration": 10,
+        "duration": 2400,
         "boxSize": 8,
         "stimSize": 256,
         "seed": "101tr",
@@ -48,7 +48,7 @@
         "framerate": 30
     }, {
         "name": "naturalmovie",
-        "duration": 10,
+        "duration": 200,
         "boxSize": 8,
         "stimSize": 256,
         "seed": "101te",
