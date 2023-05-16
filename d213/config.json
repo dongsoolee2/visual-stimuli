@@ -6,7 +6,7 @@
   "os": "Linux-Ubuntu18.04.4"
 }, {
   "name": "screen_parameters",
-  "idx": 0,
+  "idx": 1,
   "ch": [0, 1, 0],
   "debugsize": [0, 0, 912, 1140]
 }, {
@@ -29,8 +29,8 @@
 }, {
   "name": "stimulus_list_for_stimdraw",
   "list": [{
-        "name": "whitenoise",
-        "duration": 10,
+      "name": "whitenoise",
+        "duration": 100,
         "boxSize": 8,
         "stimSize": 256,
         "seed": 0,
@@ -38,20 +38,56 @@
         "binary": 1,
         "framerate": 30
     }, {
+      "name": "naturalmovie",
+      "duration": 100,
+      "boxSize": 8,
+      "stimSize": 256,
+      "seed": "101te",
+      "contrast": 1,
+      "binary": 0,
+      "framerate": 30
+    }, {
+      "name": "naturalmovie",
+      "duration": 100,
+      "boxSize": 8,
+      "stimSize": 256,
+      "seed": "101te",
+      "contrast": 1,
+      "binary": 0,
+      "framerate": 30
+    }, {
+      "name": "naturalmovie",
+      "duration": 100,
+      "boxSize": 8,
+      "stimSize": 256,
+      "seed": "101te",
+      "contrast": 1,
+      "binary": 0,
+      "framerate": 30
+    }, {
+      "name": "naturalmovie",
+      "duration": 100,
+      "boxSize": 8,
+      "stimSize": 256,
+      "seed": "101te",
+      "contrast": 1,
+      "binary": 0,
+      "framerate": 30
+    }, {
+      "name": "naturalmovie",
+      "duration": 100,
+      "boxSize": 8,
+      "stimSize": 256,
+      "seed": "101te",
+      "contrast": 1,
+      "binary": 0,
+      "framerate": 30
+    }, {
         "name": "naturalmovie",
-        "duration": 10,
+        "duration": 2400,
         "boxSize": 8,
         "stimSize": 256,
         "seed": "101tr",
-        "contrast": 1,
-        "binary": 0,
-        "framerate": 30
-    }, {
-        "name": "naturalmovie",
-        "duration": 10,
-        "boxSize": 8,
-        "stimSize": 256,
-        "seed": "101te",
         "contrast": 1,
         "binary": 0,
         "framerate": 30
