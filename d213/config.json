@@ -25,71 +25,19 @@
   "pauseafter1frame": 0,
   "pausetimeafter1frame": 100.0,
   "pausetimebetween": 1.0,
-  "pausetimeafter": 0.5
+  "pausetimeafter": 30
 }, {
   "name": "stimulus_list_for_stimdraw",
-  "list": [{
+  "list": [
+    {
       "name": "whitenoise",
-        "duration": 100,
-        "boxSize": 8,
-        "stimSize": 256,
-        "seed": 0,
-        "contrast": 1,
-        "binary": 1,
-        "framerate": 30
-    }, {
-      "name": "naturalmovie",
-      "duration": 100,
+      "duration": 2400,
       "boxSize": 8,
       "stimSize": 256,
-      "seed": "101te",
+      "seed": 0,
       "contrast": 1,
-      "binary": 0,
+      "binary": 1,
       "framerate": 30
-    }, {
-      "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
-      "seed": "101te",
-      "contrast": 1,
-      "binary": 0,
-      "framerate": 30
-    }, {
-      "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
-      "seed": "101te",
-      "contrast": 1,
-      "binary": 0,
-      "framerate": 30
-    }, {
-      "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
-      "seed": "101te",
-      "contrast": 1,
-      "binary": 0,
-      "framerate": 30
-    }, {
-      "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
-      "seed": "101te",
-      "contrast": 1,
-      "binary": 0,
-      "framerate": 30
-    }, {
-        "name": "naturalmovie",
-        "duration": 2400,
-        "boxSize": 8,
-        "stimSize": 256,
-        "seed": "101tr",
-        "contrast": 1,
-        "binary": 0,
-        "framerate": 30
-    }]
+    }
+  ]
 }]
