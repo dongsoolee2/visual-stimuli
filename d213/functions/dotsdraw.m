@@ -182,7 +182,7 @@ try
     Screen('Flip', myWindow);
         
     sl{1}.totalFrame60
-    
+ 
     % draw the list of stimuli
     for s = 1:stimnum
         boxes = so{s}.boxes;
@@ -242,7 +242,7 @@ try
         Screen('FillOval', myWindow, blackframe, PHOTODIODE);
         vbl = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
     end
-    
+ 
     Priority(0);
     Screen('CloseAll');
     ShowCursor();
