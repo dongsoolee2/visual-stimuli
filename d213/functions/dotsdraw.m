@@ -206,6 +206,7 @@ try
             Screen('DrawDots', myWindow, dots, 1, dotColor(:, :, i), [], 0);
             Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
+            %pause(1000);
 	    %if s == 6 && i == 100
             %	ex.screen_array = Screen('GetImage', myWindow); %%%
             %end
