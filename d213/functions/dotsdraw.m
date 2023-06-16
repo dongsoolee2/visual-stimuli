@@ -135,8 +135,8 @@ try
         % upsample to make it 60 Hz
         %so{s}.boxColor = uint8(upsample_s(so{s}.boxColor, 2, 3));
         %so{s}.pdColor = uint8(upsample_s(0.05 * so{s}.pdColor, 2, 2));
-        so{s}.boxColor = uint8(repelem(so{s}.boxColor, 1, 1, 2));
-        so{s}.pdColor = uint8(repelem(0.05 * so{s}.pdColor, 1, 2));
+        so{s}.boxColor = uint8(repelem(so{s}.boxColor, 1, 1, sl{s}.flipFrame));
+        so{s}.pdColor = uint8(repelem(0.05 * so{s}.pdColor, 1, sl{s}.flipFrame));
         % first frame pd
         so{s}.pdColor(:, 1) = uint8(white * pd.ch);
         
@@ -182,7 +182,7 @@ try
     Screen('Flip', myWindow);
         
     sl{1}.totalFrame60
- 
+    
     % draw the list of stimuli
     for s = 1:stimnum
         boxes = so{s}.boxes;
@@ -194,7 +194,7 @@ try
         % initialize flipmiss count
         flipmiss_temp = zeros(100, 2);
         ms = 1;
-        
+      
         % prepare (repeated to avoid "first frame delay")
         Screen('FillOval', myWindow, blackframe, PHOTODIODE);
         vbl = Screen('Flip', myWindow);
@@ -206,6 +206,7 @@ try
             Screen('DrawDots', myWindow, dots, 1, dotColor(:, :, i), [], 0);
             Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
+            
             %pause(1000);
 	    %if s == 6 && i == 100
             %	ex.screen_array = Screen('GetImage', myWindow); %%%
@@ -217,7 +218,7 @@ try
                 ms = ms + 1;
             end
         end
-
+        
         % i = sl{s}.totalFrame60 + 1 (after original frame, 'white pd')
         Screen('FillOval', myWindow, whiteframe, PHOTODIODE);
         [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
@@ -238,17 +239,17 @@ try
         % saves if there are (less than 100) flipmiss
         sl{s}.flipmiss = reshape(nonzeros(flipmiss_temp), [], 2);
     end
-    
+
     for p = 1:ceil(60*ti.pausetimeafter)
         Screen('FillOval', myWindow, blackframe, PHOTODIODE);
         vbl = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
     end
- 
+    
     Priority(0);
     Screen('CloseAll');
     ShowCursor();
     ListenChar(0);
-    
+   
     % save experiment configuration as .json file
     ev.mode = 'pattern/dotsdraw.m';
     ex{1} = ev;
@@ -258,11 +259,12 @@ try
     ex{5} = ti;
     slist.list = sl;
     ex{6} = slist;
+  
     if expmode == 1
         dt = datetime('now', 'Format', 'yy-MM-dd''_T''HHmmss');
         savejson('obj', ex, 'filename', '/home/dlee/Documents/MATLAB/visual-stimuli/d213/archive/' + string(dt) + '.json');
     end
-    
+
 catch exception
     Priority(0);
     Screen('CloseAll');

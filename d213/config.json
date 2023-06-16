@@ -7,7 +7,7 @@
 }, {
   "name": "screen_parameters",
   "idx": 1,
-  "ch": [0, 1, 0],
+  "ch": [1, 1, 0],
   "debugsize": [0, 0, 912, 1140]
 }, {
   "name": "photodiode_parameters",
@@ -37,7 +37,16 @@
       "seed": 0,
       "contrast": 1,
       "binary": 1,
+      "framerate": 10
+    },
+    {
+      "name": "naturalmovie",
+      "duration": 10,
+      "boxSize": 8,
+      "stimSize": 256,
+      "seed": "101tr",
+      "contrast": 1,
+      "binary": 0,
       "framerate": 30
-    }
-  ]
+    }]  
 }]
