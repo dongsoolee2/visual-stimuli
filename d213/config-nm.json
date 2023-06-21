@@ -13,7 +13,7 @@
   "name": "photodiode_parameters",
   "ch": [1, 0, 0],
   "center": [0.75, 0.35],
-  "radius": 80
+  "radius": 76
 }, {
   "name": "stimulus_parameters",
   "ch": [0, 1, 0],
@@ -31,9 +31,9 @@
   "list": [
     {
       "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
       "seed": "101te",
       "contrast": 1,
       "binary": 0,
@@ -41,9 +41,9 @@
     }, 
     {
       "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
       "seed": "101te",
       "contrast": 1,
       "binary": 0,
@@ -51,9 +51,9 @@
     }, 
     {
       "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
       "seed": "101te",
       "contrast": 1,
       "binary": 0,
@@ -61,9 +61,9 @@
     }, 
     {
       "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
       "seed": "101te",
       "contrast": 1,
       "binary": 0,
@@ -71,9 +71,9 @@
     }, 
     {
       "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
       "seed": "101te",
       "contrast": 1,
       "binary": 0,
@@ -81,23 +81,13 @@
     }, 
     {
       "name": "naturalmovie",
-      "duration": 100,
-      "boxSize": 8,
-      "stimSize": 256,
-      "seed": "101te",
-      "contrast": 1,
-      "binary": 0,
-      "framerate": 30
-    }, 
-    {
-      "name": "naturalmovie",
-      "duration": 2400,
-      "boxSize": 8,
-      "stimSize": 256,
+      "duration": 1800,
+      "boxSize": 12,
+      "stimSize": 384,
       "seed": "101tr",
       "contrast": 1,
       "binary": 0,
       "framerate": 30
     }
-  ]
+  ]  
 }]

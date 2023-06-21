@@ -207,7 +207,7 @@ try
             Screen('FillOval', myWindow, pdColor(:, i), PHOTODIODE);
             [vbl, ~, ~, mbp] = Screen('Flip', myWindow, vbl + (1 - framebuffer) * ifi);
             
-            %pause(1000);
+            %pause(10);
 	    %if s == 6 && i == 100
             %	ex.screen_array = Screen('GetImage', myWindow); %%%
             %end

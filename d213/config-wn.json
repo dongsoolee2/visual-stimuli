@@ -13,7 +13,7 @@
   "name": "photodiode_parameters",
   "ch": [1, 0, 0],
   "center": [0.75, 0.35],
-  "radius": 80
+  "radius": 76
 }, {
   "name": "stimulus_parameters",
   "ch": [0, 1, 0],
@@ -31,9 +31,59 @@
   "list": [
     {
       "name": "whitenoise",
-      "duration": 2400,
-      "boxSize": 8,
-      "stimSize": 256,
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
+      "seed": 1,
+      "contrast": 1,
+      "binary": 1,
+      "framerate": 6
+    },
+    {
+      "name": "whitenoise",
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
+      "seed": 1,
+      "contrast": 1,
+      "binary": 1,
+      "framerate": 6
+    },
+    {
+      "name": "whitenoise",
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
+      "seed": 1,
+      "contrast": 1,
+      "binary": 1,
+      "framerate": 6
+    },
+    {
+      "name": "whitenoise",
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
+      "seed": 1,
+      "contrast": 1,
+      "binary": 1,
+      "framerate": 6
+    },
+    {
+      "name": "whitenoise",
+      "duration": 60,
+      "boxSize": 12,
+      "stimSize": 384,
+      "seed": 1,
+      "contrast": 1,
+      "binary": 1,
+      "framerate": 6
+    },
+    {
+      "name": "whitenoise",
+      "duration": 1800,
+      "boxSize": 12,
+      "stimSize": 384,
       "seed": 0,
       "contrast": 1,
       "binary": 1,
