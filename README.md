@@ -4,6 +4,7 @@ Codes generating visual stimuli using MATLAB Psychtoolbox
 Based on https://github.com/baccuslab/stimuli
 
 Dongsoo Lee
+
 Baccus Laboratory, Stanford University
 
 ### Usage
